@@ -1,0 +1,66 @@
+[
+  {
+    "id": "entity-3",
+    "number": "3",
+    "name": "Smilers",
+    "habitat": "Any level with darkness",
+    "description": "Luminous teeth floating in darkness. Highly dangerous. Avoid light sources in dark areas.",
+    "danger": "high"
+  },
+  {
+    "id": "entity-9",
+    "number": "9",
+    "name": "Facelings",
+    "habitat": "Majority of levels",
+    "description": "Humanoid beings without faces. Most are harmless, some are hostile. Come in adult and child forms.",
+    "danger": "medium"
+  },
+  {
+    "id": "entity-8",
+    "number": "8",
+    "name": "Hounds",
+    "habitat": "Majority of levels",
+    "description": "Dog-like creatures that can be befriended with food. Generally not hostile unless provoked.",
+    "danger": "low"
+  },
+  {
+    "id": "entity-10",
+    "number": "10",
+    "name": "Skin-Stealers",
+    "habitat": "Levels 1-3",
+    "description": "Humanoid creatures that can disguise themselves by wearing the skin of their victims.",
+    "danger": "high"
+  },
+  {
+    "id": "entity-4",
+    "number": "4",
+    "name": "Deathmoths",
+    "habitat": "Many, possibly Level 5",
+    "description": "Large moth-like creatures. Females are aggressive and carnivorous.",
+    "danger": "medium"
+  },
+  {
+    "id": "entity-29",
+    "number": "29",
+    "name": "Mannequins",
+    "habitat": "Shopping levels",
+    "description": "Animate mannequins that move when not observed. Generally hostile.",
+    "danger": "medium"
+  },
+  {
+    "id": "entity-5",
+    "number": "5",
+    "name": "Clumps",
+    "habitat": "Many, most notably Level 2",
+    "description": "Amalgamations of human body parts fused together. Extremely dangerous.",
+    "danger": "high"
+  },
+  {
+    "id": "entity-6",
+    "number": "6",
+    "name": "Dullers",
+    "habitat": "Many",
+    "description": "Grey humanoid creatures that avoid contact. Low threat.",
+    "danger": "low"
+  }
+]

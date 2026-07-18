@@ -1,0 +1,182 @@
+[
+  {
+    "id": "object-1",
+    "number": "1",
+    "name": "Almond Water",
+    "category": "consumable",
+    "description": "A mysterious liquid that resembles almond-flavored water. It is the most common and important resource in the Backrooms. It can be found in bottles, pools, or dripping from walls. It restores hydration and has mild healing properties.",
+    "found_on": "Most levels, especially Level 4, Level 37",
+    "effects": "Hydration, mild healing, sanity restoration"
+  },
+  {
+    "id": "object-2",
+    "number": "2",
+    "name": "Level Keys",
+    "category": "tool",
+    "description": "Mysterious keys that can unlock doors to specific levels. They are rare and highly sought after.",
+    "found_on": "Various levels",
+    "effects": "Allows access to locked levels"
+  },
+  {
+    "id": "object-4",
+    "number": "4",
+    "name": "Liquid Pain",
+    "category": "consumable",
+    "description": "A dark, viscous liquid that causes extreme pain when consumed. It is the opposite of Almond Water and should be avoided.",
+    "found_on": "Various levels",
+    "effects": "Extreme pain, possible death"
+  },
+  {
+    "id": "object-35",
+    "number": "35",
+    "name": "The Diary",
+    "category": "document",
+    "description": "A mysterious diary that contains information about the Backrooms. Its contents change depending on who reads it.",
+    "found_on": "Unknown",
+    "effects": "Provides information"
+  },
+  {
+    "id": "object-7",
+    "number": "7",
+    "name": "Cashew Water",
+    "category": "consumable",
+    "description": "Similar to Almond Water but with a cashew flavor. It is less common but equally effective.",
+    "found_on": "Various levels",
+    "effects": "Hydration, mild healing"
+  },
+  {
+    "id": "object-8",
+    "number": "8",
+    "name": "Rose Water",
+    "category": "consumable",
+    "description": "A fragrant liquid with a rose scent. It has calming properties and can reduce anxiety.",
+    "found_on": "Various levels",
+    "effects": "Calming, anxiety reduction"
+  },
+  {
+    "id": "object-10",
+    "number": "10",
+    "name": "Carpet Fluid",
+    "category": "consumable",
+    "description": "A strange liquid that seeps from the carpet in some levels. Its properties are not well understood.",
+    "found_on": "Level 0 and similar levels",
+    "effects": "Unknown"
+  },
+  {
+    "id": "object-12",
+    "number": "12",
+    "name": "Royal Rations",
+    "category": "consumable",
+    "description": "A type of food found in the Backrooms. It provides nutrition and is safe to eat.",
+    "found_on": "Various levels",
+    "effects": "Nutrition"
+  },
+  {
+    "id": "object-14",
+    "number": "14",
+    "name": "The Black Knight",
+    "category": "weapon",
+    "description": "A mysterious sword that can harm entities. It is extremely rare and powerful.",
+    "found_on": "Unknown",
+    "effects": "Can harm entities"
+  },
+  {
+    "id": "object-15",
+    "number": "15",
+    "name": "The Scarlet Avian",
+    "category": "entity",
+    "description": "A strange bird-like entity that can be found in some levels. It is generally harmless.",
+    "found_on": "Various levels",
+    "effects": "Unknown"
+  },
+  {
+    "id": "object-16",
+    "number": "16",
+    "name": "The Candle",
+    "category": "tool",
+    "description": "A candle that never burns out. It provides light and can be used to navigate dark levels.",
+    "found_on": "Various levels",
+    "effects": "Permanent light source"
+  },
+  {
+    "id": "object-17",
+    "number": "17",
+    "name": "The Clock",
+    "category": "tool",
+    "description": "A mysterious clock that shows the time in the Backrooms. It may also show the time in the real world.",
+    "found_on": "Unknown",
+    "effects": "Time display"
+  },
+  {
+    "id": "object-20",
+    "number": "20",
+    "name": "The Device",
+    "category": "tool",
+    "description": "A mysterious device that can be used to communicate with other wanderers. Its range is limited.",
+    "found_on": "Unknown",
+    "effects": "Communication"
+  },
+  {
+    "id": "object-22",
+    "number": "22",
+    "name": "The Eye of the Forest",
+    "category": "artifact",
+    "description": "A mysterious artifact that can see through walls. It is extremely rare and valuable.",
+    "found_on": "Level 8 or similar forest levels",
+    "effects": "X-ray vision"
+  },
+  {
+    "id": "object-25",
+    "number": "25",
+    "name": "The Frozen Star",
+    "category": "artifact",
+    "description": "A star-shaped crystal that is always cold to the touch. It can freeze objects and entities.",
+    "found_on": "Unknown",
+    "effects": "Freezing"
+  },
+  {
+    "id": "object-30",
+    "number": "30",
+    "name": "The Glitch",
+    "category": "anomaly",
+    "description": "A glitch in reality that can transport wanderers to random levels. It is dangerous and unpredictable.",
+    "found_on": "Various levels",
+    "effects": "Random teleportation"
+  },
+  {
+    "id": "object-33",
+    "number": "33",
+    "name": "The Gun of Infinite Ammo",
+    "category": "weapon",
+    "description": "A gun that never runs out of ammunition. It is extremely rare and powerful.",
+    "found_on": "Unknown",
+    "effects": "Infinite ammunition"
+  },
+  {
+    "id": "object-40",
+    "number": "40",
+    "name": "The Notebook",
+    "category": "document",
+    "description": "A notebook that contains information about the Backrooms. Its contents are always accurate.",
+    "found_on": "Unknown",
+    "effects": "Information"
+  },
+  {
+    "id": "object-45",
+    "number": "45",
+    "name": "The Potion of Healing",
+    "category": "consumable",
+    "description": "A potion that can heal injuries and cure diseases. It is rare and valuable.",
+    "found_on": "Various levels",
+    "effects": "Healing"
+  },
+  {
+    "id": "object-50",
+    "number": "50",
+    "name": "The Reality Checker",
+    "category": "tool",
+    "description": "A device that can determine whether the user is in the Backrooms or the real world.",
+    "found_on": "Unknown",
+    "effects": "Reality verification"
+  }
+]

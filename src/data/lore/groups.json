@@ -1,0 +1,66 @@
+[
+  {
+    "id": "group-meg",
+    "name": "M.E.G. (Major Explorer Group)",
+    "description": "The largest and most organized group in the Backrooms. They document levels, entities, and objects. They have bases on many levels and provide resources to wanderers.",
+    "alignment": "neutral-good",
+    "territory": "Multiple levels, especially Level 4, Level 11",
+    "goals": "Documentation, exploration, helping wanderers"
+  },
+  {
+    "id": "group-bacteria",
+    "name": "The Bacteria",
+    "description": "A mysterious and hostile entity that hunts wanderers. It is attracted to sound and movement.",
+    "alignment": "hostile",
+    "territory": "Level 2, Level 3, dark levels",
+    "goals": "Hunting and consuming wanderers"
+  },
+  {
+    "id": "group-mapping",
+    "name": "The Mapping Community",
+    "description": "A group of wanderers who create maps of the Backrooms. Their maps are often inaccurate due to the shifting nature of the levels.",
+    "alignment": "neutral",
+    "territory": "Various levels",
+    "goals": "Mapping the Backrooms"
+  },
+  {
+    "id": "group-survivors",
+    "name": "The Survivors",
+    "description": "A loose coalition of wanderers who band together for survival. They share resources and information.",
+    "alignment": "good",
+    "territory": "Various levels",
+    "goals": "Survival, mutual aid"
+  },
+  {
+    "id": "group-cultists",
+    "name": "The Cult of the Backrooms",
+    "description": "A cult that worships the Backrooms as a living entity. They believe the Backrooms is a test or punishment.",
+    "alignment": "hostile",
+    "territory": "Unknown",
+    "goals": "Worship of the Backrooms"
+  },
+  {
+    "id": "group-researchers",
+    "name": "The Researchers",
+    "description": "A group of scientists and scholars who study the Backrooms. They seek to understand its nature and find a way out.",
+    "alignment": "neutral",
+    "territory": "Various levels",
+    "goals": "Research, understanding, escape"
+  },
+  {
+    "id": "group-merchants",
+    "name": "The Merchants",
+    "description": "A group of traders who exchange resources and information. They are generally trustworthy but will exploit desperate wanderers.",
+    "alignment": "neutral",
+    "territory": "Various levels",
+    "goals": "Trade, profit"
+  },
+  {
+    "id": "group-guardians",
+    "name": "The Guardians",
+    "description": "A group that protects wanderers from hostile entities. They are skilled fighters and know the Backrooms well.",
+    "alignment": "good",
+    "territory": "Various levels",
+    "goals": "Protection, justice"
+  }
+]

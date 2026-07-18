@@ -1,0 +1,242 @@
+[
+  {
+    "id": "entity-1",
+    "number": "1",
+    "name": "The Cameraman",
+    "habitat": "Unknown"
+  },
+  {
+    "id": "entity-2",
+    "number": "2",
+    "name": "Windows",
+    "habitat": "Common, notably Level 188"
+  },
+  {
+    "id": "entity-3",
+    "number": "3",
+    "name": "Smilers",
+    "habitat": "Any level with darkness"
+  },
+  {
+    "id": "entity-3a",
+    "number": "3-A",
+    "name": "Frowners / Vulpes Lumina",
+    "habitat": "Dark areas with significant flora and fauna"
+  },
+  {
+    "id": "entity-3b",
+    "number": "3-B",
+    "name": "Rattlers / Crepitus Nocturnus",
+    "habitat": "Dark areas with flora and fauna, Mostly Level 8"
+  },
+  {
+    "id": "entity-4",
+    "number": "4",
+    "name": "Deathmoths",
+    "habitat": "Many, possibly Level 5"
+  },
+  {
+    "id": "entity-5",
+    "number": "5",
+    "name": "Clumps",
+    "habitat": "Many, most notably Level 2"
+  },
+  {
+    "id": "entity-5a",
+    "number": "5-A",
+    "name": "Amalgamations",
+    "habitat": "Majority"
+  },
+  {
+    "id": "entity-6",
+    "number": "6",
+    "name": "Dullers",
+    "habitat": "Many"
+  },
+  {
+    "id": "entity-7",
+    "number": "7",
+    "name": "The Mandela Virus",
+    "habitat": "Unknown"
+  },
+  {
+    "id": "entity-8",
+    "number": "8",
+    "name": "Hounds",
+    "habitat": "Majority"
+  },
+  {
+    "id": "entity-9",
+    "number": "9",
+    "name": "Facelings",
+    "habitat": "Majority"
+  },
+  {
+    "id": "entity-10",
+    "number": "10",
+    "name": "Skin-Stealers",
+    "habitat": "Many, most notably levels 1-3"
+  },
+  {
+    "id": "entity-11",
+    "number": "11",
+    "name": "Hydrolitis Plague",
+    "habitat": "Unknown"
+  },
+  {
+    "id": "entity-12",
+    "number": "12",
+    "name": "The Phobia",
+    "habitat": "Individual, Class 3 levels and above"
+  },
+  {
+    "id": "entity-13",
+    "number": "13",
+    "name": "Familiar Face",
+    "habitat": "Unknown"
+  },
+  {
+    "id": "entity-14",
+    "number": "14",
+    "name": "Rainbows",
+    "habitat": "Level 10, Level 199"
+  },
+  {
+    "id": "entity-15",
+    "number": "15",
+    "name": "Unknown",
+    "habitat": "Unknown"
+  },
+  {
+    "id": "entity-16",
+    "number": "16",
+    "name": "Undying",
+    "habitat": "Majority"
+  },
+  {
+    "id": "entity-17",
+    "number": "17",
+    "name": "Kats",
+    "habitat": "Majority"
+  },
+  {
+    "id": "entity-18",
+    "number": "18",
+    "name": "The Beast of Level 5",
+    "habitat": "Level 5"
+  },
+  {
+    "id": "entity-19",
+    "number": "19",
+    "name": "Gemini Lunares",
+    "habitat": "Level 11"
+  },
+  {
+    "id": "entity-20",
+    "number": "20",
+    "name": "The Thing on Level 7",
+    "habitat": "Level 7"
+  },
+  {
+    "id": "entity-21",
+    "number": "21",
+    "name": "Mechanized Angels",
+    "habitat": "Outdoor environments"
+  },
+  {
+    "id": "entity-22",
+    "number": "22",
+    "name": "Anethikas",
+    "habitat": "Levels in great proximity to Level 0"
+  },
+  {
+    "id": "entity-23",
+    "number": "23",
+    "name": "Carbonations",
+    "habitat": "Environments containing carbon dioxide or carbon monoxide"
+  },
+  {
+    "id": "entity-24",
+    "number": "24",
+    "name": "Refuse",
+    "habitat": "Majority"
+  },
+  {
+    "id": "entity-25",
+    "number": "25",
+    "name": "The Guy in a Mask",
+    "habitat": "Unknown"
+  },
+  {
+    "id": "entity-26",
+    "number": "26",
+    "name": "Unknown",
+    "habitat": "Unknown"
+  },
+  {
+    "id": "entity-27",
+    "number": "27",
+    "name": "Unknown",
+    "habitat": "Unknown"
+  },
+  {
+    "id": "entity-28",
+    "number": "28",
+    "name": "The Denizens of Level 1.5",
+    "habitat": "Level 1.5"
+  },
+  {
+    "id": "entity-29",
+    "number": "29",
+    "name": "Mannequins",
+    "habitat": "Shopping levels"
+  },
+  {
+    "id": "entity-29b",
+    "number": "29-B",
+    "name": "The Husks of Level 1.5",
+    "habitat": "Level 1.5"
+  },
+  {
+    "id": "entity-30",
+    "number": "30",
+    "name": "The Mother of Level 1.5",
+    "habitat": "Level 1.5"
+  },
+  {
+    "id": "entity-37",
+    "number": "37",
+    "name": "Devil's Ambrosia",
+    "habitat": "Many; mostly on levels with vegetation"
+  },
+  {
+    "id": "entity-38",
+    "number": "38",
+    "name": "Needlelimbs",
+    "habitat": "Cold or humid levels"
+  },
+  {
+    "id": "entity-41",
+    "number": "41",
+    "name": "Pool Guards",
+    "habitat": "Aquatic Levels"
+  },
+  {
+    "id": "entity-50",
+    "number": "50",
+    "name": "The Numbed Man",
+    "habitat": "Unknown"
+  },
+  {
+    "id": "entity-51",
+    "number": "51",
+    "name": "Species of Sublevel 302.3",
+    "habitat": "Sublevel 302.3"
+  },
+  {
+    "id": "entity-56",
+    "number": "56",
+    "name": "Entity 56",
+    "habitat": "Unknown"
+  }
+]
