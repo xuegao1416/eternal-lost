@@ -1,0 +1,9 @@
+/* ═══════════════════════════════════════════════
+   全局样式入口 — OmniRoom 无尽房间
+   ═══════════════════════════════════════════════ */
+@import './styles/tokens.css';
+@import './styles/base.css';
+@import './styles/layout-settings.css';
+@import './styles/layout-game.css';
+@import './styles/backrooms.css';
+@import './styles/responsive.css';

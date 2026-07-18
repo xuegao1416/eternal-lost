@@ -1,0 +1,37 @@
+/* ═══════════════════════════════════════════════
+   响应式适配 — OmniRoom
+   ═══════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+  .main-menu {
+    padding: var(--space-4);
+  }
+  .main-menu__title {
+    font-size: 1.5rem;
+  }
+  .main-menu__subtitle {
+    font-size: var(--font-size-base);
+  }
+  .chat-panel__messages {
+    padding: var(--space-3);
+  }
+  .message-bubble {
+    max-width: 92%;
+  }
+}
+
+/* 安全区域适配（刘海屏） */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .chat-panel__input-area {
+    padding-bottom: max(var(--space-3), env(safe-area-inset-bottom));
+  }
+}
+
+/* 减弱动画 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
