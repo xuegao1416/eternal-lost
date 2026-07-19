@@ -38,13 +38,22 @@ export default function ChatPanel() {
     setIsStreaming(true);
     setStreaming('');
 
-    // 构建消息列表
-    const systemPrompt = assembleSystemPrompt(state.currentLevel, state.exploration);
+    // 构建消息列表（世界书需要聊天历史进行关键词扫描）
+    const chatHistory = state.messages
+      .filter(m => m.role !== 'system')
+      .map(m => ({ role: m.role, content: m.content }));
+
+    const systemPrompt = assembleSystemPrompt(
+      state.currentLevel,
+      state.exploration,
+      undefined, // 使用默认预设
+      chatHistory,
+      text,
+    );
+
     const messages: Message[] = [
       { role: 'system', content: systemPrompt },
-      ...state.messages
-        .filter(m => m.role !== 'system')
-        .map(m => ({ role: m.role as 'user' | 'assistant', content: m.content })),
+      ...chatHistory.map(m => ({ role: m.role as 'user' | 'assistant', content: m.content })),
       { role: 'user', content: text },
     ];
 

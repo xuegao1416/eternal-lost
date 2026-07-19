@@ -1,28 +1,63 @@
 // ============================================================
-//  Prompt 组装器 — 预设系统 + 后室层级上下文
+//  Prompt 组装器 — 预设系统 + 世界书 + 层级上下文
 // ============================================================
 import type { LevelDef, ExplorationState } from '../data/level-schema';
 import type { PresetPack, PresetPromptEntry } from '../data/builtinPresets';
 import { getEnabledPrompts } from '../data/builtinPresets';
 import { getBackroomsPreset } from '../data/backroomsPreset';
+import {
+  createWorldBookManager,
+  type WorldBookManager,
+  type WorldBookEntry,
+} from '../worldbook';
+import {
+  createLevelWorldBookManager,
+  type LevelWorldBookManager,
+} from '../worldbook/levelWorldBook';
+
+// ─── 全局世界书管理器 ───
+
+let levelBookManager: LevelWorldBookManager | null = null;
+
+/** 初始化世界书管理器 */
+export function initPromptAssembler(): void {
+  levelBookManager = createLevelWorldBookManager();
+}
+
+/** 切换当前 Level 的世界书 */
+export function switchLevelWorldBook(levelId: string): void {
+  if (!levelBookManager) initPromptAssembler();
+  levelBookManager!.switchToLevel(levelId);
+}
+
+/** 获取当前世界书管理器 */
+export function getLevelBookManager(): LevelWorldBookManager | null {
+  return levelBookManager;
+}
+
+// ─── 预设管理 ───
 
 /**
  * 获取当前激活的预设
- * 后续可以从 presetStore 读取用户自定义预设
  */
 export function getActivePreset(): PresetPack {
   return getBackroomsPreset();
 }
 
+// ─── 组装完整 system prompt ───
+
 /**
  * 组装完整 system prompt
  * 1. 预设的 prompts[]（按 order 排序）
- * 2. 后室层级上下文（动态注入）
+ * 2. 世界书扫描结果（酒馆式关键词触发 + 常驻注入）
+ * 3. 动态上下文（背包、状态等）
  */
 export function assembleSystemPrompt(
   level: LevelDef | null,
   exploration: ExplorationState,
   preset?: PresetPack,
+  chatHistory?: Array<{ role?: string; content?: string }>,
+  userText?: string,
 ): string {
   const activePreset = preset || getActivePreset();
   const parts: string[] = [];
@@ -33,33 +68,42 @@ export function assembleSystemPrompt(
     parts.push(entry.content);
   }
 
-  // ─── 2. 后室层级上下文（动态） ───
-  const contextParts: string[] = [];
-
-  if (level) {
-    contextParts.push(`## 当前层级
-名称：${level.name}${level.subtitle ? `\n${level.subtitle}` : ''}
-环境：${level.description}
-氛围：${level.atmosphere}`);
-
-    if (level.rules.length > 0) {
-      contextParts.push(`## 该层级的规则\n${level.rules.map(r =>
-        `- ${r.content}（${r.confidence === 'confirmed' ? '已确认' : r.confidence === 'suspected' ? '疑似' : '传闻'}）`
-      ).join('\n')}`);
+  // ─── 2. 世界书扫描注入 ───
+  if (levelBookManager && level) {
+    // 确保当前 Level 的世界书已加载
+    if (levelBookManager.currentLevelId !== level.id) {
+      levelBookManager.switchToLevel(level.id);
     }
 
-    if (level.entities.length > 0) {
-      contextParts.push(`## 该层级的实体\n${level.entities.map(e =>
-        `- ${e.name}：${e.description}。${e.encounters}`
-      ).join('\n')}`);
-    }
+    const entries = levelBookManager.getEntries();
+    if (entries.length > 0) {
+      // 创建临时世界书管理器进行扫描
+      const wbManager = createWorldBookManager(entries);
 
-    if (level.exits.length > 0) {
-      contextParts.push(`## 可能的出口\n${level.exits.map(e =>
-        `- ${e.condition}（${e.method === 'random' ? '随机' : e.method === 'triggered' ? '触发式' : '条件式'}，${e.reliability === 'always' ? '总是有效' : e.reliability === 'sometimes' ? '有时有效' : '罕见'}）`
-      ).join('\n')}`);
+      // 使用酒馆式扫描引擎
+      const history = chatHistory || [];
+      const input = userText || '';
+      const injection = wbManager.scanAndBuildInjection(history, input);
+
+      // 注入 before_char 区块
+      if (injection.beforeChar) {
+        parts.push(injection.beforeChar);
+      }
+
+      // 注入 after_char 区块
+      if (injection.afterChar) {
+        parts.push(injection.afterChar);
+      }
+
+      // 注入 atDepth 条目（如果有）
+      for (const atDepth of injection.atDepthEntries) {
+        parts.push(atDepth.content);
+      }
     }
   }
+
+  // ─── 3. 动态上下文 ───
+  const contextParts: string[] = [];
 
   // 玩家已发现的规则
   if (exploration.discoveredRules.length > 0) {
@@ -75,11 +119,19 @@ export function assembleSystemPrompt(
     ).join('\n')}`);
   }
 
-  // 状态
-  contextParts.push(`## 当前状态
-存活轮次：${exploration.survivalTime}
-情绪：${exploration.currentMood}
-已访问层级：${exploration.visitedLevels.length}个`);
+  // 状态（模糊化，无数值）
+  const statusParts: string[] = [];
+  if (exploration.survivalTime > 10) {
+    statusParts.push('你已经在这里待了很久了，疲惫感正在侵蚀你');
+  } else if (exploration.survivalTime > 5) {
+    statusParts.push('你开始感到有些疲惫');
+  }
+  if (exploration.currentMood !== '困惑') {
+    statusParts.push(`你现在的情绪：${exploration.currentMood}`);
+  }
+  if (statusParts.length > 0) {
+    contextParts.push(`## 当前状态\n${statusParts.join('\n')}`);
+  }
 
   if (contextParts.length > 0) {
     parts.push(contextParts.join('\n\n'));
