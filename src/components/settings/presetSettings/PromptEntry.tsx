@@ -18,7 +18,7 @@ export function PromptEntry({ entry: p, expanded, builtin, onToggleExpand, onTog
     <div style={{
       borderRadius: '8px',
       border: '1px solid var(--border)',
-      background: p.enabled ? 'var(--bg-secondary)' : 'var(--bg-primary)',
+      background: p.enabled ? 'var(--paper-light)' : 'var(--paper)',
       opacity: p.enabled ? 1 : 0.55,
     }}>
       {/* 条目头部 */}
@@ -27,23 +27,23 @@ export function PromptEntry({ entry: p, expanded, builtin, onToggleExpand, onTog
         padding: '8px 12px', cursor: 'pointer',
       }} onClick={onToggleExpand}>
         {expanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
-        <span style={{ flex: 1, fontWeight: '500', fontSize: 'var(--font-size-sm)' }}>{p.name}</span>
+        <span style={{ flex: 1, fontWeight: '500', fontSize: 'var(--text-sm)' }}>{p.name}</span>
 
         {/* 蓝灯/绿灯指示 */}
         <span style={{
           fontSize: 'var(--font-size-xs)', padding: '1px 6px', borderRadius: '4px',
-          background: p.triggerMode === 'green' ? 'var(--success-dim)' : 'var(--accent-dim)',
-          color: p.triggerMode === 'green' ? 'var(--success)' : 'var(--accent)',
+          background: p.triggerMode === 'green' ? 'var(--success-bg)' : 'var(--stamp-red-dim)',
+          color: p.triggerMode === 'green' ? 'var(--success)' : 'var(--stamp-red)',
         }}>
           {p.triggerMode === 'green' ? '🟢 关键词' : '🔵 常驻'}
         </span>
 
         {/* 启用/禁用 */}
         <button onClick={(e) => { e.stopPropagation(); onToggle(); }} style={iconBtnStyle}>
-          {p.enabled ? <ToggleRight size={16} color="var(--accent)" /> : <ToggleLeft size={16} />}
+          {p.enabled ? <ToggleRight size={16} color="var(--stamp-red)" /> : <ToggleLeft size={16} />}
         </button>
         {!builtin && (
-          <button onClick={(e) => { e.stopPropagation(); onDelete(); }} style={{ ...iconBtnStyle, color: 'var(--danger)' }} title="删除条目">
+          <button onClick={(e) => { e.stopPropagation(); onDelete(); }} style={{ ...iconBtnStyle, color: 'var(--stamp-red)' }} title="删除条目">
             <Trash2 size={14} />
           </button>
         )}
@@ -61,7 +61,7 @@ export function PromptEntry({ entry: p, expanded, builtin, onToggleExpand, onTog
 
           {/* 角色 */}
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)' }}>角色：</span>
+            <span style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-muted)' }}>角色：</span>
             {(['system', 'user', 'assistant'] as const).map(r => (
               <button
                 key={r}
@@ -69,8 +69,8 @@ export function PromptEntry({ entry: p, expanded, builtin, onToggleExpand, onTog
                 onClick={() => onUpdate({ role: r })}
                 style={{
                   ...chipStyle,
-                  background: p.role === r ? 'var(--accent)' : 'var(--bg-tertiary)',
-                  color: p.role === r ? '#fff' : 'var(--text-secondary)',
+                  background: p.role === r ? 'var(--stamp-red)' : 'var(--paper-warm)',
+                  color: p.role === r ? '#fff' : 'var(--ink-faded)',
                 }}
               >{r}</button>
             ))}
@@ -78,14 +78,14 @@ export function PromptEntry({ entry: p, expanded, builtin, onToggleExpand, onTog
 
           {/* 触发模式 */}
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)' }}>触发模式：</span>
+            <span style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-muted)' }}>触发模式：</span>
             <button
               disabled={builtin}
               onClick={() => onUpdate({ triggerMode: 'blue' })}
               style={{
                 ...chipStyle,
-                background: p.triggerMode !== 'green' ? 'var(--accent)' : 'var(--bg-tertiary)',
-                color: p.triggerMode !== 'green' ? '#fff' : 'var(--text-secondary)',
+                background: p.triggerMode !== 'green' ? 'var(--stamp-red)' : 'var(--paper-warm)',
+                color: p.triggerMode !== 'green' ? '#fff' : 'var(--ink-faded)',
               }}
             >🔵 常驻</button>
             <button
@@ -93,8 +93,8 @@ export function PromptEntry({ entry: p, expanded, builtin, onToggleExpand, onTog
               onClick={() => onUpdate({ triggerMode: 'green' })}
               style={{
                 ...chipStyle,
-                background: p.triggerMode === 'green' ? 'var(--success)' : 'var(--bg-tertiary)',
-                color: p.triggerMode === 'green' ? '#fff' : 'var(--text-secondary)',
+                background: p.triggerMode === 'green' ? 'var(--success)' : 'var(--paper-warm)',
+                color: p.triggerMode === 'green' ? '#fff' : 'var(--ink-faded)',
               }}
             >🟢 关键词</button>
           </div>

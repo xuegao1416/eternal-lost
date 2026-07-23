@@ -29,7 +29,7 @@ export function MappingPanel({
     <div style={{
       padding: '10px 12px',
       borderRadius: '6px',
-      background: 'var(--bg-secondary)',
+      background: 'var(--paper-light)',
       border: '1px solid var(--border)',
       fontSize: '12px',
     }}>
@@ -41,7 +41,7 @@ export function MappingPanel({
           const current = getMappingParam(mapping, role as keyof WorkflowParamMapping);
           return (
             <div key={role} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ width: '80px', fontWeight: 500, flexShrink: 0, color: current ? 'var(--success)' : 'var(--text-secondary)' }}>
+              <span style={{ width: '80px', fontWeight: 500, flexShrink: 0, color: current ? 'var(--success)' : 'var(--ink-faded)' }}>
                 {current ? <CheckCircle size={12} style={{ verticalAlign: 'middle', marginRight: '4px' }} /> : null}
                 {ROLE_LABELS[role] || role}
               </span>

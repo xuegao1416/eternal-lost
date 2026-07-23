@@ -25,8 +25,8 @@ export default function ProxySettings() {
       <div style={{ ...rowStyle, flexDirection: 'column', alignItems: 'stretch', gap: '10px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div>
-            <div style={{ fontSize: 'var(--font-size-md)', fontWeight: '500' }}>代理地址（可选）</div>
-            <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-muted)', marginTop: '2px' }}>
+            <div style={{ fontSize: 'var(--text-md)', fontWeight: '500' }}>代理地址（可选）</div>
+            <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--ink-muted)', marginTop: '2px' }}>
               解决网页端 CORS 跨域问题，桌面版无需设置。同时适用于已开启的生图功能
             </div>
           </div>
@@ -59,15 +59,15 @@ export default function ProxySettings() {
             value={proxyUrl}
             onChange={e => handleChange(e.target.value)}
             placeholder="https://你的worker名字.workers.dev"
-            style={{ flex: 1, fontSize: 'var(--font-size-base)', padding: '5px 10px' }}
+            style={{ flex: 1, fontSize: 'var(--text-base)', padding: '5px 10px' }}
           />
         </div>
         {proxyUrl && (
           <div style={{
             fontSize: 'var(--font-size-xs)',
-            color: 'var(--text-muted)',
+            color: 'var(--ink-muted)',
             padding: '8px 10px',
-            background: 'var(--bg-tertiary)',
+            background: 'var(--paper-warm)',
             borderRadius: '6px',
           }}>
             ✅ 代理已启用：{proxyUrl}

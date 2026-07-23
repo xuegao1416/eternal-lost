@@ -38,7 +38,7 @@ export default function PresetManager({ config, presets, setPresets, onLoadPrese
 
   return (
     <div style={{ ...rowStyle, flexDirection: 'column', alignItems: 'stretch', gap: '8px' }}>
-      <div style={{ fontSize: 'var(--font-size-base)', fontWeight: '500', color: 'var(--text-secondary)' }}>
+      <div style={{ fontSize: 'var(--text-base)', fontWeight: '500', color: 'var(--ink-faded)' }}>
         预设配置
       </div>
       <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
@@ -47,16 +47,16 @@ export default function PresetManager({ config, presets, setPresets, onLoadPrese
           value={presetName}
           onChange={e => setPresetName(e.target.value)}
           placeholder="预设名称"
-          style={{ flex: 1, fontSize: 'var(--font-size-base)', padding: '5px 10px' }}
+          style={{ flex: 1, fontSize: 'var(--text-base)', padding: '5px 10px' }}
         />
         <button
           onClick={handleSave}
           disabled={!presetName.trim()}
           style={{
-            padding: '5px 14px', fontSize: 'var(--font-size-base)', whiteSpace: 'nowrap',
+            padding: '5px 14px', fontSize: 'var(--text-base)', whiteSpace: 'nowrap',
             border: '1px solid var(--border)', borderRadius: '6px', cursor: 'pointer',
-            background: presetName.trim() ? 'var(--bg-primary)' : 'var(--bg-tertiary)',
-            color: presetName.trim() ? 'var(--text-primary)' : 'var(--text-muted)',
+            background: presetName.trim() ? 'var(--paper)' : 'var(--paper-warm)',
+            color: presetName.trim() ? 'var(--ink)' : 'var(--ink-muted)',
           }}
         >
           保存当前配置
@@ -64,24 +64,24 @@ export default function PresetManager({ config, presets, setPresets, onLoadPrese
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
         {presets.length === 0 ? (
-          <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', padding: '4px 0' }}>暂无预设</div>
+          <div style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-muted)', padding: '4px 0' }}>暂无预设</div>
         ) : (
           presets.map((p, i) => (
             <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '4px 0' }}>
-              <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', width: '18px', textAlign: 'right' }}>{i + 1}</span>
-              <span style={{ flex: 1, fontSize: 'var(--font-size-base)', fontWeight: '500' }}>{p.name}</span>
+              <span style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-muted)', width: '18px', textAlign: 'right' }}>{i + 1}</span>
+              <span style={{ flex: 1, fontSize: 'var(--text-base)', fontWeight: '500' }}>{p.name}</span>
               <button
                 onClick={() => onLoadPreset(p.config)}
                 style={{
                   border: '1px solid var(--border)', borderRadius: '6px', padding: '3px 10px',
-                  fontSize: 'var(--font-size-sm)', cursor: 'pointer', background: 'var(--bg-primary)', color: 'var(--text-primary)',
+                  fontSize: 'var(--text-sm)', cursor: 'pointer', background: 'var(--paper)', color: 'var(--ink)',
                 }}
               >
                 加载
               </button>
               <button
                 onClick={() => handleDelete(p.id)}
-                style={{ border: 'none', background: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                style={{ border: 'none', background: 'none', color: 'var(--ink-muted)', cursor: 'pointer', padding: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
                 <Trash2 size={14} />
               </button>

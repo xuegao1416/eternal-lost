@@ -17,17 +17,17 @@ export default function ConnectionTest({ testing, testResult, testSuccess, onTes
         onClick={onTest}
         disabled={testing}
         style={{
-          padding: '8px 18px', fontSize: 'var(--font-size-md)', fontWeight: '500',
+          padding: '8px 18px', fontSize: 'var(--text-md)', fontWeight: '500',
           border: '1px solid var(--border)', borderRadius: '8px', cursor: 'pointer',
-          background: 'var(--bg-secondary)', color: 'var(--text-primary)',
+          background: 'var(--paper-light)', color: 'var(--ink)',
         }}
       >
         {testing ? t('settings.testing') : '测试连接'}
       </button>
       {testResult && (
-        <span style={{ fontSize: 'var(--font-size-base)', flex: 1, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+        <span style={{ fontSize: 'var(--text-base)', flex: 1, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
           {testSuccess === true && <CheckCircle size={14} color="var(--success)" style={{ flexShrink: 0 }} />}
-          {testSuccess === false && <XCircle size={14} color="var(--danger)" style={{ flexShrink: 0 }} />}
+          {testSuccess === false && <XCircle size={14} color="var(--stamp-red)" style={{ flexShrink: 0 }} />}
           {testResult}
         </span>
       )}
@@ -36,9 +36,9 @@ export default function ConnectionTest({ testing, testResult, testSuccess, onTes
         <button
           onClick={onBack}
           style={{
-            padding: '8px 20px', fontSize: 'var(--font-size-md)', fontWeight: '500',
+            padding: '8px 20px', fontSize: 'var(--text-md)', fontWeight: '500',
             border: '1px solid var(--border)', borderRadius: '8px', cursor: 'pointer',
-            background: 'var(--bg-secondary)', color: 'var(--text-primary)',
+            background: 'var(--paper-light)', color: 'var(--ink)',
           }}
         >
           返回
@@ -48,9 +48,9 @@ export default function ConnectionTest({ testing, testResult, testSuccess, onTes
         <button
           onClick={onSave}
           style={{
-            padding: '8px 28px', fontSize: 'var(--font-size-md)', fontWeight: '600',
+            padding: '8px 28px', fontSize: 'var(--text-md)', fontWeight: '600',
             border: 'none', borderRadius: '8px', cursor: 'pointer',
-            background: 'var(--accent)', color: '#fff',
+            background: 'var(--stamp-red)', color: 'var(--paper-light)',
           }}
         >
           保存配置

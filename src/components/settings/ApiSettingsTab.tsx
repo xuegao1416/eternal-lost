@@ -1,6 +1,7 @@
 import { useState, useCallback, useImperativeHandle, forwardRef } from 'react';
 import { fetchModels, testConnection } from '../../api/client';
 import type { ApiConfig, ApiProvider } from '../../api/types';
+import { useConfigStore } from '../../stores/configStore';
 import { type ApiPreset, loadPresets } from './apiPresetUtils';
 import { ProviderForm, ConnectionTest, PROVIDERS } from './apiSettings';
 import type { ApiSettingsRef, ApiSettingsTabProps } from './apiSettings';
@@ -13,7 +14,10 @@ const DEFAULT_CONFIG: ApiConfig = {
 };
 
 const ApiSettingsTab = forwardRef<ApiSettingsRef, ApiSettingsTabProps>(
-  ({ initialConfig, t, onSave, onBack }, ref) => {
+  (props = {}, ref) => {
+    const { initialConfig, t: tProp, onSave, onBack } = props;
+    const storeT = useConfigStore(s => s.t);
+    const t = tProp || storeT;
     const [config, setConfig] = useState<ApiConfig>(initialConfig || DEFAULT_CONFIG);
     const [models, setModels] = useState<string[]>([]);
     const [testing, setTesting] = useState(false);
@@ -58,30 +62,27 @@ const ApiSettingsTab = forwardRef<ApiSettingsRef, ApiSettingsTabProps>(
     }, []);
 
     return (
-      <div style={{ maxWidth: '560px' }}>
-        <div style={{ marginBottom: '18px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-            <span style={{ fontWeight: '600', fontSize: 'var(--font-size-md)' }}>参数配置</span>
+      <div className="setting-section">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+          <div className="setting-section__title" style={{ marginBottom: 0 }}>参数配置</div>
+          <div className="setting-select-wrap" style={{ width: 'auto' }}>
             <select
               value={config.provider}
               onChange={e => set('provider', e.target.value as ApiProvider)}
-              style={{
-                padding: '4px 10px', border: '1px solid var(--border)', borderRadius: '6px',
-                background: 'var(--bg-secondary)', color: 'var(--text-primary)',
-                fontSize: 'var(--font-size-base)', cursor: 'pointer', outline: 'none',
-              }}
+              className="setting-select"
             >
               {PROVIDERS.map(p => <option key={p.value} value={p.value}>{p.label}</option>)}
             </select>
+            <span className="setting-select-arrow">▼</span>
           </div>
-          <ProviderForm
-            config={config} set={set}
-            models={models} setModels={setModels}
-            loadingModels={loadingModels} onFetchModels={handleFetchModels}
-            presets={presets} setPresets={setPresets}
-            onLoadPreset={handleLoadPreset}
-          />
         </div>
+        <ProviderForm
+          config={config} set={set}
+          models={models} setModels={setModels}
+          loadingModels={loadingModels} onFetchModels={handleFetchModels}
+          presets={presets} setPresets={setPresets}
+          onLoadPreset={handleLoadPreset}
+        />
         <ConnectionTest
           testing={testing} testResult={testResult} testSuccess={testSuccess}
           onTest={handleTest} t={t} onSave={onSave} onBack={onBack}

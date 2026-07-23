@@ -6,8 +6,8 @@ export interface ApiSettingsRef {
 }
 
 export interface ApiSettingsTabProps {
-  initialConfig: ApiConfig | null;
-  t: (key: string) => string;
+  initialConfig?: ApiConfig | null;
+  t?: (key: string) => string;
   onSave?: () => void;
   onBack?: () => void;
 }

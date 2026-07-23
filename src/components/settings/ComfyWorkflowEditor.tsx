@@ -154,7 +154,7 @@ export default function ComfyWorkflowEditor() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <div style={{ fontWeight: 500, marginBottom: '2px' }}>使用自定义工作流</div>
-              <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
+              <div style={{ fontSize: '12px', color: 'var(--ink-faded)' }}>
                 关闭则使用内置默认流程（Checkpoint → KSampler → VAE Decode）
               </div>
             </div>

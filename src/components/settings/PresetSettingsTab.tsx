@@ -53,18 +53,20 @@ export default function PresetSettingsTab() {
 
   if (!editingPreset) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <>
         {DialogUI}
         <input ref={fileRef} type="file" accept=".json" style={{ display: 'none' }} onChange={handleFileChange} />
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+        <div className="setting-section__title">
           <FileText size={18} />
-          <span style={{ fontWeight: '600', fontSize: 'var(--font-size-lg)' }}>预设管理</span>
+          {' '}预设管理
         </div>
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div className="setting-actions" style={{ marginTop: 0, borderTop: 'none', paddingTop: 0 }}>
           <Button onClick={() => fileRef.current?.click()} icon={<Upload size={14} />}>导入预设</Button>
         </div>
         {error && (
-          <div style={{ padding: '8px 12px', background: 'var(--danger-dim, #3a1c1c)', border: '1px solid var(--danger)', borderRadius: '6px', fontSize: 'var(--font-size-sm)', color: 'var(--danger)' }}>{error}</div>
+          <div className="setting-error">
+            <div className="setting-error__text">{error}</div>
+          </div>
         )}
         {builtinPresets.map(bp => (
           <PresetCard
@@ -94,7 +96,7 @@ export default function PresetSettingsTab() {
             onEdit={() => setEditingPreset(pack)}
           />
         ))}
-      </div>
+      </>
     );
   }
 

@@ -22,9 +22,9 @@ export function TutorialStepCard({
   return (
     <div
       style={{
-        background: 'var(--bg-secondary)',
-        border: `1px solid ${isExpanded ? 'var(--accent)' : 'var(--border)'}`,
-        borderRadius: '12px',
+        background: 'var(--paper-light)',
+        border: `1px solid ${isExpanded ? 'var(--stamp-red)' : 'var(--border)'}`,
+        borderRadius: '4px',
         overflow: 'hidden',
         transition: 'border-color 0.2s',
       }}
@@ -42,15 +42,15 @@ export function TutorialStepCard({
           border: 'none',
           cursor: 'pointer',
           textAlign: 'left',
-          color: 'var(--text-primary)',
+          color: 'var(--ink)',
         }}
       >
         <div
           style={{
             width: '32px',
             height: '32px',
-            borderRadius: '8px',
-            background: isExpanded ? 'var(--accent)' : 'var(--bg-tertiary)',
+            borderRadius: 'var(--radius-sm)',
+            background: isExpanded ? 'var(--stamp-red)' : 'var(--paper-warm)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -58,13 +58,13 @@ export function TutorialStepCard({
             transition: 'background 0.2s',
           }}
         >
-          <Icon size={16} color={isExpanded ? '#fff' : 'var(--text-muted)'} />
+          <Icon size={16} color={isExpanded ? 'var(--paper-light)' : 'var(--ink-muted)'} />
         </div>
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)' }}>
+          <div style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-muted)' }}>
             步骤 {index + 1}
           </div>
-          <div style={{ fontSize: 'var(--font-size-md)', fontWeight: '500' }}>
+          <div style={{ fontSize: 'var(--text-md)', fontWeight: '500' }}>
             {step.title}
           </div>
         </div>

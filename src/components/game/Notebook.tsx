@@ -20,61 +20,63 @@ const CATEGORY_LABELS: Record<string, string> = {
   survival: '生存',
 };
 
+const IMPORTANCE_CLASS_MAP: Record<string, string> = {
+  critical: 'notebook-entry--danger',
+  high: 'notebook-entry--warn',
+  medium: 'notebook-entry--discovered',
+  low: 'notebook-entry--undiscovered',
+};
+
 export default function Notebook() {
   const { state } = useGame();
   const { notebook, discoveredRules } = state.exploration;
 
   return (
-    <div>
+    <div className="panel">
       {/* 已发现的规则 */}
       {discoveredRules.length > 0 && (
-        <div className="panel-section">
-          <div className="panel-section__title">
-            <Shield size={12} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />
+        <>
+          <div className="panel__title">
             已发现的规则
           </div>
           {discoveredRules.map(rule => (
-            <div key={rule.id} className="rule-card">
+            <div key={rule.id} className="notebook-entry notebook-entry--discovered">
               <div>{rule.content}</div>
-              <div className="rule-card__confidence">
+              <div className="notebook-entry__label">
                 可信度: {rule.confidence === 'confirmed' ? '已确认' : rule.confidence === 'suspected' ? '疑似' : '传闻'}
                 · 来源: {rule.source === 'observed' ? '观察' : rule.source === 'told' ? '告知' : rule.source === 'discovered' ? '发现' : '幸存'}
               </div>
             </div>
           ))}
-        </div>
+        </>
       )}
 
       {/* 笔记本条目 */}
-      <div className="panel-section">
-        <div className="panel-section__title">
-          <BookOpen size={12} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />
-          笔记
-        </div>
-        {notebook.length === 0 ? (
-          <p style={{ color: 'var(--text-muted)', fontSize: 'var(--font-size-sm)' }}>
-            还没有记录。你的探索将会被自动记录在这里。
-          </p>
-        ) : (
-          notebook.map(entry => {
-            const Icon = CATEGORY_ICONS[entry.category] || BookOpen;
-            return (
-              <div
-                key={entry.id}
-                className={`notebook-entry ${entry.importance === 'critical' ? 'notebook-entry--critical' : entry.importance === 'high' ? 'notebook-entry--high' : ''}`}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 4 }}>
-                  <Icon size={12} />
-                  <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-muted)' }}>
-                    {CATEGORY_LABELS[entry.category] || entry.category}
-                  </span>
-                </div>
-                {entry.content}
-              </div>
-            );
-          })
-        )}
+      <div className="panel__title">
+        笔记
       </div>
+      {notebook.length === 0 ? (
+        <p className="text-muted" style={{ fontSize: 'var(--text-sm)' }}>
+          还没有记录。你的探索将会被自动记录在这里。
+        </p>
+      ) : (
+        notebook.map(entry => {
+          const Icon = CATEGORY_ICONS[entry.category] || BookOpen;
+          const importanceClass = IMPORTANCE_CLASS_MAP[entry.importance] || 'notebook-entry--discovered';
+          return (
+            <div
+              key={entry.id}
+              className={`notebook-entry ${importanceClass}`}
+            >
+              <div className="notebook-entry__label">
+                <Icon size={12} />
+                {' '}{CATEGORY_LABELS[entry.category] || entry.category}
+              </div>
+              {entry.content}
+            </div>
+          );
+        })
+      )}
     </div>
   );
 }

@@ -1,0 +1,165 @@
+/* ═══════════════════════════════════════════════
+   氛围特效 — 荧光灯闪烁 / 旧档案纹理 / 过渡
+   ═══════════════════════════════════════════════ */
+
+/* ─── 荧光灯闪烁 ─── */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  4% { opacity: 0.9; }
+  6% { opacity: 1; }
+  12% { opacity: 0.85; }
+  14% { opacity: 1; }
+  40% { opacity: 1; }
+  42% { opacity: 0.7; }
+  43% { opacity: 1; }
+  70% { opacity: 1; }
+  72% { opacity: 0.9; }
+  73% { opacity: 1; }
+  80% { opacity: 0.85; }
+  82% { opacity: 1; }
+}
+.flicker {
+  animation: flicker 4s infinite;
+}
+
+/* ─── 屏幕抖动（实体遭遇） ─── */
+@keyframes screenShake {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2px, -1px); }
+  20% { transform: translate(2px, 1px); }
+  30% { transform: translate(-1px, 2px); }
+  40% { transform: translate(1px, -2px); }
+  50% { transform: translate(-2px, 0); }
+  60% { transform: translate(2px, -1px); }
+  70% { transform: translate(0, 2px); }
+  80% { transform: translate(-1px, -1px); }
+  90% { transform: translate(1px, 0); }
+}
+.screen-shake {
+  animation: screenShake 0.3s ease-in-out;
+}
+
+/* ─── 黑屏过渡（层级切换） ─── */
+@keyframes blackout {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  60% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.level-transition {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  pointer-events: none;
+  animation: blackout 2s ease-in-out;
+}
+
+/* ─── 旧档案纸纹理 ─── */
+.paper-texture {
+  position: relative;
+}
+.paper-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 40px,
+      rgba(200, 180, 120, 0.04) 40px,
+      rgba(200, 180, 120, 0.04) 41px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 40px,
+      rgba(200, 180, 120, 0.04) 40px,
+      rgba(200, 180, 120, 0.04) 41px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── 静态噪点（旧监控 / 档案质感） ─── */
+@keyframes staticNoise {
+  0% { background-position: 0 0; }
+  25% { background-position: -50px -50px; }
+  50% { background-position: 50px -25px; }
+  75% { background-position: -25px 50px; }
+  100% { background-position: 0 0; }
+}
+.static-noise {
+  position: relative;
+}
+.static-noise::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  animation: staticNoise 0.5s steps(5) infinite;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ─── 危险闪烁（低生存率） ─── */
+@keyframes dangerPulse {
+  0%, 100% { box-shadow: none; }
+  50% { box-shadow: inset 0 0 30px rgba(139, 58, 58, 0.2); }
+}
+.danger-pulse {
+  animation: dangerPulse 2s ease-in-out infinite;
+}
+
+/* ─── 标题荧光闪烁 ─── */
+@keyframes titleFlicker {
+  0%   { text-shadow: 0 0 20px rgba(200, 160, 48, 0.3), 0 0 40px rgba(200, 160, 48, 0.1); opacity: 1; }
+  4%   { opacity: 0.85; }
+  6%   { opacity: 1; }
+  12%  { opacity: 0.8; }
+  14%  { opacity: 1; }
+  40%  { opacity: 1; }
+  42%  { opacity: 0.7; }
+  43%  { opacity: 1; }
+  70%  { opacity: 1; }
+  72%  { opacity: 0.9; }
+  73%  { opacity: 1; }
+  80%  { opacity: 0.85; }
+  82%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+.title-flicker {
+  animation: titleFlicker 4s infinite;
+}
+
+/* ─── Redacted 涂黑效果 ─── */
+.redacted {
+  background: #000;
+  color: #000;
+  display: inline;
+  position: relative;
+  cursor: help;
+}
+.redacted:hover::after {
+  content: ' [内容已涂黑]';
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  padding: 4px 8px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* ─── 旧化水渍 ─── */
+.water-stain {
+  background: radial-gradient(ellipse at 30% 40%, rgba(201, 169, 110, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}

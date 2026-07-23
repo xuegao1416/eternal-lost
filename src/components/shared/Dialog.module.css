@@ -5,33 +5,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(4px);
+  background: rgba(26, 22, 18, 0.5);
   animation: fadeIn 0.15s ease;
 }
 
 .dialog {
-  background: var(--bg-secondary, #1a1a2e);
-  border: 1px solid var(--border, rgba(255, 255, 255, 0.1));
-  border-radius: 12px;
-  padding: 24px;
+  background: var(--paper-light);
+  border: 1px solid var(--border);
+  padding: var(--space-6);
   width: 90%;
   max-width: 380px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--elev-overlay);
   animation: dialogSlideIn 0.2s ease;
 }
 
 .header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 14px;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
 }
 
 .iconBox {
   width: 32px;
   height: 32px;
-  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,41 +36,40 @@
 }
 
 .iconBoxDefault {
-  background: var(--accent-dim, rgba(212, 175, 55, 0.12));
+  background: rgba(44, 36, 22, 0.06);
 }
 
 .iconBoxDanger {
-  background: var(--danger-bg);
+  background: var(--stamp-red-bg);
 }
 
 .dialogTitle {
+  font-family: var(--font-display);
   font-weight: 600;
-  font-size: var(--font-size-lg);
-  color: var(--text-primary, #e8e6e3);
+  font-size: var(--text-lg);
+  color: var(--ink);
 }
 
 .message {
-  font-size: var(--font-size-md);
-  color: var(--text-secondary, #a0a0a0);
+  font-size: var(--text-md);
+  color: var(--ink-faded);
   line-height: 1.6;
-  margin-bottom: 20px;
-  padding-left: 42px;
+  margin-bottom: var(--space-5);
+  font-family: var(--font-body);
 }
 
 .promptWrap {
-  margin-bottom: 20px;
-  padding-left: 42px;
+  margin-bottom: var(--space-5);
 }
 
 .promptInput {
   width: 100%;
-  padding: 10px 14px;
-  border: 1px solid var(--border, rgba(255, 255, 255, 0.15));
-  border-radius: 8px;
-  background: var(--bg-tertiary, #2a2a3e);
-  color: var(--text-primary, #e8e6e3);
-  font-size: var(--font-size-md);
-  font-family: inherit;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--text-md);
+  font-family: var(--font-mono);
   outline: none;
   transition: border-color 0.15s;
   box-sizing: border-box;
@@ -81,61 +77,61 @@
 }
 
 .promptInput:focus {
-  border-color: var(--accent, #d4af37);
+  border-color: var(--ink);
 }
 
 .actions {
   display: flex;
-  gap: 8px;
+  gap: var(--space-2);
   justify-content: flex-end;
-  padding-left: 42px;
 }
 
 .cancelBtn {
-  padding: 8px 18px;
-  border: 1px solid var(--border, rgba(255, 255, 255, 0.1));
-  border-radius: 8px;
-  background: var(--bg-tertiary, #2a2a3e);
-  color: var(--text-muted, #888);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--ink-faded);
   cursor: pointer;
-  font-size: var(--font-size-base);
-  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
   transition: all 0.15s;
 }
 
 .cancelBtn:hover {
-  border-color: var(--text-muted, #888);
+  border-color: var(--ink-faded);
+  color: var(--ink);
 }
 
 .confirmBtn {
-  padding: 8px 18px;
+  padding: var(--space-2) var(--space-4);
   border: none;
-  border-radius: 8px;
   cursor: pointer;
-  font-size: var(--font-size-base);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
   font-weight: 600;
   transition: all 0.15s;
 }
 
 .confirmBtnDefault {
-  background: var(--accent, #d4af37);
-  color: var(--bg-deep, #0f0f1a);
+  background: var(--ink);
+  color: var(--paper-light);
 }
 
 .confirmBtnDanger {
-  background: var(--danger-strong);
-  color: var(--color-on-accent);
+  background: var(--stamp-red);
+  color: var(--paper-light);
 }
 
 .confirmBtn:hover {
   opacity: 0.85;
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.spinIcon {
-  animation: spin 1s linear infinite;
+@keyframes dialogSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }

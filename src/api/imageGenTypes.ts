@@ -1,6 +1,6 @@
 // ─── 生图功能类型定义 ───
 
-export type ImageEngine = 'nai' | 'comfyui' | 'openai_compatible';
+export type ImageEngine = 'nai' | 'comfyui' | 'openai_compatible' | 'krea';
 export type ImageCategory = 'story' | 'character' | 'player';
 export type ImageTaskStatus = 'queued' | 'generating' | 'completed' | 'failed';
 
@@ -113,6 +113,12 @@ export interface ImageGenConfig {
   openaiCompatibleApiUrl: string;
   openaiCompatibleApiKey: string;
   openaiCompatibleModel: string;
+  // ─── Krea ───
+  kreaApiKey: string;
+  kreaModel: string;
+  kreaAspectRatio: string;
+  kreaResolution: string;
+  kreaCreativity: string;
   // ─── 正文生图 ───
   inlineImageEnabled: boolean;
   inlineImageRegex: string;
@@ -200,6 +206,39 @@ export const UC_PRESETS = [
   { value: 4, label: 'None' },
 ];
 
+// ─── Krea ───
+
+export const KREA_MODELS: Record<string, { label: string; provider: string; model: string }> = {
+  'krea/krea-2/medium': { label: 'Krea 2 Medium', provider: 'krea', model: 'krea-2/medium' },
+  'krea/krea-2/large': { label: 'Krea 2 Large', provider: 'krea', model: 'krea-2/large' },
+  'bfl/flux-1-dev': { label: 'Flux 1 Dev', provider: 'bfl', model: 'flux-1-dev' },
+  'bfl/flux-1-pro': { label: 'Flux 1 Pro', provider: 'bfl', model: 'flux-1-pro' },
+  'google/imagen-4': { label: 'Imagen 4', provider: 'google', model: 'imagen-4' },
+  'google/nano-banana-pro': { label: 'Nano Banana Pro', provider: 'google', model: 'nano-banana-pro' },
+};
+
+export const KREA_ASPECT_RATIOS = [
+  { label: '1:1', value: '1:1' },
+  { label: '4:3', value: '4:3' },
+  { label: '3:4', value: '3:4' },
+  { label: '16:9', value: '16:9' },
+  { label: '9:16', value: '9:16' },
+  { label: '4:5', value: '4:5' },
+  { label: '5:4', value: '5:4' },
+];
+
+export const KREA_RESOLUTIONS = [
+  { label: '1K', value: '1K' },
+  { label: '2K', value: '2K' },
+  { label: '4K', value: '4K' },
+];
+
+export const KREA_CREATIVITY_LEVELS = [
+  { label: '低', value: 'low' },
+  { label: '中', value: 'medium' },
+  { label: '高', value: 'high' },
+];
+
 export const OPENAI_COMPATIBLE_IMAGE_PROVIDERS: Record<
   string,
   { label: string; defaultApiUrl: string; modelPlaceholder: string }
@@ -250,6 +289,12 @@ export const DEFAULT_IMAGE_CONFIG: ImageGenConfig = {
   openaiCompatibleApiUrl: '',
   openaiCompatibleApiKey: '',
   openaiCompatibleModel: '',
+  // Krea
+  kreaApiKey: '',
+  kreaModel: 'krea/krea-2/medium',
+  kreaAspectRatio: '1:1',
+  kreaResolution: '1K',
+  kreaCreativity: 'medium',
   // 正文生图
   inlineImageEnabled: false,
   inlineImageRegex: 'image###([\\s\\S]+?)###',

@@ -22,29 +22,29 @@ export default function ProviderForm({
   presets, setPresets, onLoadPreset,
 }: Props) {
   return (
-    <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border)', borderRadius: '8px', overflow: 'hidden' }}>
+    <div style={{ background: 'var(--paper-light)', border: '1px solid var(--border)', borderRadius: '8px', overflow: 'hidden' }}>
 
       <PresetManager config={config} presets={presets} setPresets={setPresets} onLoadPreset={onLoadPreset} />
 
       {/* API 端点 */}
       <div style={rowStyle}>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: 'var(--font-size-md)', fontWeight: '500' }}>API 端点</div>
-          <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-muted)', marginTop: '1px' }}>留空则使用官方默认地址</div>
+          <div style={{ fontSize: 'var(--text-md)', fontWeight: '500' }}>API 端点</div>
+          <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--ink-muted)', marginTop: '1px' }}>留空则使用官方默认地址</div>
         </div>
         <input
           className="input-field"
           value={config.baseUrl}
           onChange={e => set('baseUrl', e.target.value)}
           placeholder={config.provider === 'google' ? 'https://generativelanguage.googleapis.com' : 'https://api.openai.com'}
-          style={{ maxWidth: '220px', width: '100%', minWidth: 0, fontSize: 'var(--font-size-base)', padding: '5px 10px' }}
+          style={{ maxWidth: '220px', width: '100%', minWidth: 0, fontSize: 'var(--text-base)', padding: '5px 10px' }}
         />
       </div>
 
       {/* API 密钥 */}
       <div style={rowStyle}>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: 'var(--font-size-md)', fontWeight: '500' }}>API 密钥</div>
+          <div style={{ fontSize: 'var(--text-md)', fontWeight: '500' }}>API 密钥</div>
         </div>
         <input
           className="input-field"
@@ -52,20 +52,20 @@ export default function ProviderForm({
           value={config.apiKey}
           onChange={e => set('apiKey', e.target.value)}
           placeholder="sk-..."
-          style={{ maxWidth: '220px', width: '100%', minWidth: 0, fontSize: 'var(--font-size-base)', padding: '5px 10px' }}
+          style={{ maxWidth: '220px', width: '100%', minWidth: 0, fontSize: 'var(--text-base)', padding: '5px 10px' }}
         />
       </div>
 
       <ProxySettings />
 
       {/* 模型设置 */}
-      <div style={{ padding: '8px 16px', borderBottom: '1px solid var(--border)', background: 'var(--bg-tertiary)', fontSize: 'var(--font-size-sm)', fontWeight: '600', color: 'var(--text-muted)' }}>
+      <div style={{ padding: '8px 16px', borderBottom: '1px solid var(--border)', background: 'var(--paper-warm)', fontSize: 'var(--text-sm)', fontWeight: '600', color: 'var(--ink-muted)' }}>
         模型设置
       </div>
 
       <div style={rowStyle}>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: 'var(--font-size-md)', fontWeight: '500' }}>模型名称</div>
+          <div style={{ fontSize: 'var(--text-md)', fontWeight: '500' }}>模型名称</div>
         </div>
         <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
           <input
@@ -73,15 +73,15 @@ export default function ProviderForm({
             value={config.model}
             onChange={e => set('model', e.target.value)}
             placeholder="gpt-4o"
-            style={{ maxWidth: '150px', width: '100%', minWidth: 0, fontSize: 'var(--font-size-base)', padding: '5px 10px' }}
+            style={{ maxWidth: '150px', width: '100%', minWidth: 0, fontSize: 'var(--text-base)', padding: '5px 10px' }}
           />
           <button
             onClick={onFetchModels}
             disabled={loadingModels}
             style={{
-              padding: '5px 10px', fontSize: 'var(--font-size-sm)', whiteSpace: 'nowrap',
+              padding: '5px 10px', fontSize: 'var(--text-sm)', whiteSpace: 'nowrap',
               border: '1px solid var(--border)', borderRadius: '6px', cursor: 'pointer',
-              background: 'var(--bg-primary)', color: 'var(--text-primary)',
+              background: 'var(--paper)', color: 'var(--ink)',
             }}
           >
             {loadingModels ? '...' : '获取'}
@@ -96,9 +96,9 @@ export default function ProviderForm({
               key={m}
               onClick={() => { set('model', m); setModels([]); }}
               style={{
-                padding: '4px 12px', fontSize: 'var(--font-size-sm)', borderRadius: '14px', cursor: 'pointer',
-                border: '1px solid var(--border)', background: m === config.model ? 'var(--accent-dim)' : 'var(--bg-primary)',
-                color: m === config.model ? 'var(--accent)' : 'var(--text-secondary)',
+                padding: '4px 12px', fontSize: 'var(--text-sm)', borderRadius: '14px', cursor: 'pointer',
+                border: '1px solid var(--border)', background: m === config.model ? 'var(--stamp-red-dim)' : 'var(--paper)',
+                color: m === config.model ? 'var(--stamp-red)' : 'var(--ink-faded)',
                 fontWeight: m === config.model ? '600' : '400',
                 transition: 'all 0.15s',
               }}

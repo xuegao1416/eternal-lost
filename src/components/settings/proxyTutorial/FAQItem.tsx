@@ -5,11 +5,11 @@ export function FAQItem({ question, answer }: { question: string; answer: string
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div style={{ border: '1px solid var(--border)', borderRadius: '8px', overflow: 'hidden' }}>
-      <button onClick={() => setIsOpen(!isOpen)} style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: 'var(--bg-tertiary)', border: 'none', cursor: 'pointer', color: 'var(--text-primary)', fontSize: 'var(--font-size-sm)', fontWeight: '500', textAlign: 'left' }}>
+      <button onClick={() => setIsOpen(!isOpen)} style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: 'var(--paper-warm)', border: 'none', cursor: 'pointer', color: 'var(--ink)', fontSize: 'var(--text-sm)', fontWeight: '500', textAlign: 'left' }}>
         <span>{question}</span>
         {isOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
       </button>
-      {isOpen && <div style={{ padding: '10px 14px', fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)', lineHeight: 1.6, animation: 'fadeIn 0.2s ease' }}>{answer}</div>}
+      {isOpen && <div style={{ padding: '10px 14px', fontSize: 'var(--text-sm)', color: 'var(--ink-faded)', lineHeight: 1.6, animation: 'fadeIn 0.2s ease' }}>{answer}</div>}
     </div>
   );
 }

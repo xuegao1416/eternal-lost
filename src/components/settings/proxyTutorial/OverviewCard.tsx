@@ -19,10 +19,10 @@ export function OverviewCard() {
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
-        <Shield size={20} color="var(--accent)" />
-        <span style={{ fontWeight: '600', fontSize: 'var(--font-size-md)' }}>为什么推荐自己部署？</span>
+        <Shield size={20} color="var(--stamp-red)" />
+        <span style={{ fontWeight: '600', fontSize: 'var(--text-md)' }}>为什么推荐自己部署？</span>
       </div>
-      <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)', lineHeight: 1.8 }}>
+      <div style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-faded)', lineHeight: 1.8 }}>
         {OVERVIEW_ITEMS.map((item, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: i < OVERVIEW_ITEMS.length - 1 ? '4px' : 0 }}>
             <CheckCircle size={14} color="var(--success)" />

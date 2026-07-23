@@ -1,37 +1,116 @@
 /* ═══════════════════════════════════════════════
-   响应式适配 — OmniRoom
+   响应式适配
    ═══════════════════════════════════════════════ */
 
-@media (max-width: 480px) {
-  .main-menu {
+/* ─── 平板 ─── */
+@media (max-width: 1024px) {
+  .game-screen__right-panel {
+    width: 240px;
+  }
+  .settings-tabs {
+    width: 150px;
+  }
+  .settings-content {
+    padding: var(--space-5) var(--space-6);
+  }
+}
+
+/* ─── 小屏 ─── */
+@media (max-width: 768px) {
+  .game-screen__sidebar {
+    width: var(--sidebar-width-mobile);
+  }
+  .game-sidebar__btn {
+    width: var(--sidebar-width-mobile);
+    height: var(--sidebar-width-mobile);
+  }
+  .game-screen__right-panel {
+    display: none;
+  }
+  .msg-bubble--narrative {
+    max-width: 95%;
+  }
+  .msg-bubble--suggestion {
+    max-width: 98%;
+  }
+  .settings-body {
+    flex-direction: column;
+  }
+  .settings-tabs {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+  }
+  .settings-tab {
+    white-space: nowrap;
+    padding: var(--space-2) var(--space-4);
+    border-left: none;
+    border-bottom: 2px solid transparent;
+  }
+  .settings-tab--active {
+    border-left: none;
+    border-bottom-color: var(--stamp-red);
+  }
+  .settings-content {
     padding: var(--space-4);
   }
-  .main-menu__title {
-    font-size: 1.5rem;
+  .wizard-card {
+    padding: var(--space-4);
   }
-  .main-menu__subtitle {
-    font-size: var(--font-size-base);
+}
+
+/* ─── 手机 ─── */
+@media (max-width: 640px) {
+  .game-screen__sidebar {
+    display: none;
+  }
+  .game-info-bar {
+    font-size: 10px;
+    padding: var(--space-1) var(--space-3);
   }
   .chat-panel__messages {
     padding: var(--space-3);
   }
-  .message-bubble {
-    max-width: 92%;
+  .chat-panel__input-area {
+    padding: var(--space-2) var(--space-3);
+  }
+  .quick-actions {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .settings-header {
+    padding: var(--space-2) var(--space-3);
+  }
+  .settings-header__title {
+    font-size: var(--text-lg);
+  }
+  .wizard-step-indicator {
+    font-size: var(--text-xs);
+  }
+  .wizard-card__title {
+    font-size: var(--text-lg);
+  }
+  .wizard-actions {
+    flex-direction: column-reverse;
+    gap: var(--space-2);
+  }
+  .wizard-actions .btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 
-/* 安全区域适配（刘海屏） */
-@supports (padding: env(safe-area-inset-bottom)) {
+/* ─── 小手机 + 刘海适配 ─── */
+@supports (padding: max(0px)) {
+  .game-screen {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
   .chat-panel__input-area {
     padding-bottom: max(var(--space-3), env(safe-area-inset-bottom));
-  }
-}
-
-/* 减弱动画 */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
   }
 }

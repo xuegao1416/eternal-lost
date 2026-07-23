@@ -1,0 +1,478 @@
+/* ═══════════════════════════════════════════════
+   设置页 — SCP 档案风
+   ═══════════════════════════════════════════════ */
+
+/* ─── 页面容器 ─── */
+.settings-screen {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--paper);
+}
+
+/* ─── 顶栏 ─── */
+.settings-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.settings-header__title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ─── 主体 ─── */
+.settings-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ─── 左侧 Tab 栏 ─── */
+.settings-tabs {
+  width: 170px;
+  border-right: 1px solid var(--border);
+  flex-shrink: 0;
+  padding: var(--space-3) 0;
+  overflow-y: auto;
+}
+
+.settings-tab {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  color: var(--ink-faded);
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-light);
+  transition: all var(--motion-fast);
+  position: relative;
+}
+.settings-tab:hover {
+  color: var(--ink);
+  background: var(--paper-warm);
+}
+.settings-tab--active {
+  color: var(--ink);
+  background: var(--paper-light);
+  border-left: 2px solid var(--stamp-red);
+}
+
+/* ─── 右侧内容区 ─── */
+.settings-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4) var(--space-5);
+}
+
+/* ─── 设置区块 ─── */
+.setting-section {
+  margin-bottom: var(--space-6);
+}
+.setting-section__title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--ink);
+  font-weight: 600;
+  padding: var(--space-3) var(--space-5);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ─── SettingRow ─── */
+.setting-row {
+  display: flex;
+  align-items: center;
+  padding: var(--space-3) var(--space-5);
+  min-height: var(--touch-min);
+  gap: var(--space-3);
+  border-bottom: 1px solid var(--border-light);
+}
+.setting-row--stacked {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.setting-row__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink);
+  font-weight: 600;
+  flex: 1;
+  min-width: 0;
+}
+.setting-row__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+.setting-row__control {
+  flex-shrink: 0;
+}
+.setting-row--stacked .setting-row__control {
+  width: 100%;
+}
+
+/* ─── Section icon ─── */
+.section-icon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--ink-muted);
+}
+
+/* ═══ 分段控件 ═══ */
+.segmented-control {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.segmented-control-btn {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  padding: 6px 14px;
+  border: none;
+  border-right: 1px solid var(--border-light);
+  background: transparent;
+  color: var(--ink-faded);
+  cursor: pointer;
+  transition: all var(--motion-fast);
+}
+.segmented-control-btn:last-child {
+  border-right: none;
+}
+.segmented-control-btn:hover {
+  color: var(--ink);
+  background: var(--paper-warm);
+}
+.segmented-control-btn.active {
+  background: var(--ink);
+  color: var(--paper-light);
+}
+
+/* ═══ Toggle ═══ */
+.toggle-switch {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  border: 1px solid var(--border);
+  background: var(--paper-warm);
+  cursor: pointer;
+  padding: 0;
+  transition: all var(--motion-fast);
+  flex-shrink: 0;
+}
+.toggle-switch.on {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.toggle-switch-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: var(--ink-muted);
+  transition: all var(--motion-fast);
+}
+.toggle-switch.on .toggle-switch-knob {
+  left: 18px;
+  background: var(--paper-light);
+}
+
+/* ═══ Select ═══ */
+.setting-select-wrap {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  max-width: 420px;
+  width: 100%;
+  background: var(--paper);
+}
+.setting-select-wrap:focus-within {
+  border-color: var(--ink-faded);
+}
+.setting-select {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.setting-select-arrow {
+  color: var(--ink-faded);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  pointer-events: none;
+}
+.setting-select-wrap::before {
+  content: '[';
+  color: var(--ink-faded);
+  font-family: var(--font-mono);
+  margin-right: 4px;
+}
+.setting-select-wrap::after {
+  content: ']';
+  color: var(--ink-faded);
+  font-family: var(--font-mono);
+  margin-left: 2px;
+}
+
+/* ═══ FieldGrid ═══ */
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  border-bottom: 1px solid var(--border-light);
+}
+.field-grid--single {
+  grid-template-columns: 1fr;
+}
+
+/* ═══ Field ═══ */
+.field-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.field-wrap--span2 {
+  grid-column: 1 / -1;
+}
+.field-wrap__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink-faded);
+  font-weight: 600;
+}
+.field-wrap__hint {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+/* ═══ Collapsible ═══ */
+.collapsible {
+  grid-column: 1 / -1;
+  border: 1px dashed var(--border);
+}
+.collapsible summary {
+  cursor: pointer;
+  padding: var(--space-3) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  user-select: none;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+.collapsible summary:hover {
+  background: var(--paper-warm);
+}
+.collapsible__body {
+  padding: 0 var(--space-4) var(--space-3);
+}
+.collapsible__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+
+/* ═══ Slider ═══ */
+.setting-slider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: 420px;
+}
+.setting-slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.setting-slider__track {
+  flex: 1;
+  position: relative;
+  height: 2px;
+  background: var(--border);
+}
+.setting-slider__track input[type="range"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+.setting-slider__thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: var(--ink);
+  pointer-events: none;
+  z-index: 1;
+}
+.setting-slider__value {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink);
+  min-width: 32px;
+}
+.setting-slider__track:hover .setting-slider__thumb {
+  background: var(--stamp-red);
+}
+
+/* ═══ 预设卡片 ═══ */
+.preset-card {
+  border: 1px solid var(--border);
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+  background: var(--paper-light);
+  transition: border-color var(--motion-fast);
+}
+.preset-card:hover {
+  border-color: var(--ink-faded);
+}
+
+/* ═══ 空/错误状态 ═══ */
+.setting-empty {
+  text-align: center;
+  padding: var(--space-8) var(--space-4);
+  color: var(--ink-muted);
+}
+.setting-empty__text {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--ink-faded);
+  line-height: 1.6;
+  margin-bottom: var(--space-4);
+}
+.setting-error {
+  border: 1px solid var(--stamp-red);
+  padding: var(--space-4);
+  background: var(--stamp-red-bg);
+  margin: var(--space-4) 0;
+}
+.setting-error__title {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--stamp-red);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+.setting-error__text {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--ink-faded);
+  line-height: 1.5;
+  margin-bottom: var(--space-3);
+}
+
+/* ═══ TextArea mono ═══ */
+.textarea-field--mono {
+  font-family: var(--font-mono);
+}
+
+/* ═══ 响应式 ─── */
+@media (max-width: 768px) {
+  .settings-tabs {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+  }
+  .settings-tab {
+    white-space: nowrap;
+    padding: var(--space-2) var(--space-4);
+    border-left: none;
+    border-bottom: 2px solid transparent;
+  }
+  .settings-tab--active {
+    border-left: none;
+    border-bottom: 2px solid var(--stamp-red);
+  }
+  .settings-content {
+    padding: var(--space-3);
+  }
+}
+
+/* ═══ setting-field ═══ */
+.setting-field {
+  border-bottom: 1px solid var(--border-light);
+}
+.setting-field__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink-faded);
+  font-weight: 600;
+}
+
+/* ═══ setting-actions ═══ */
+.setting-actions {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-4);
+  border-top: 1px solid var(--border-light);
+}
+
+/* ═══ Checkbox（[×] 风格） ═══ */
+.setting-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink);
+  user-select: none;
+}
+.setting-checkbox__box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2em;
+  height: 1.2em;
+  border: 1px solid var(--ink-faded);
+  font-size: var(--text-sm);
+  color: var(--stamp-red);
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+.setting-checkbox__input {
+  display: none;
+}
+
+/* ═══ Focus-visible ═══ */
+.settings-tab:focus-visible,
+.segmented-control-btn:focus-visible,
+.toggle-switch:focus-visible {
+  outline: 2px solid var(--stamp-red);
+  outline-offset: 2px;
+}

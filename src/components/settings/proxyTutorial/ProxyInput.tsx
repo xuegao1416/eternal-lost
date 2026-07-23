@@ -14,12 +14,12 @@ export function ProxyInput({
       style={{
         marginTop: '24px',
         padding: '20px',
-        background: 'var(--bg-secondary)',
+        background: 'var(--paper-light)',
         border: '1px solid var(--border)',
-        borderRadius: '12px',
+        borderRadius: '4px',
       }}
     >
-      <div style={{ fontWeight: '600', fontSize: 'var(--font-size-md)', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <div style={{ fontWeight: '600', fontSize: 'var(--text-md)', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
         <Target size={16} />
         已经部署好了？直接填入代理地址
       </div>
@@ -33,13 +33,13 @@ export function ProxyInput({
             flex: 1,
             padding: '10px 14px',
             border: '1px solid var(--border)',
-            borderRadius: '8px',
-            background: 'var(--bg-tertiary)',
-            color: 'var(--text-primary)',
-            fontSize: 'var(--font-size-sm)',
+            borderRadius: 'var(--radius-sm)',
+            background: 'var(--paper-warm)',
+            color: 'var(--ink)',
+            fontSize: 'var(--text-sm)',
             outline: 'none',
           }}
-          onFocus={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+          onFocus={e => { e.currentTarget.style.borderColor = 'var(--stamp-red)'; }}
           onBlur={e => { e.currentTarget.style.borderColor = 'var(--border)'; }}
         />
         <button
@@ -47,11 +47,11 @@ export function ProxyInput({
           disabled={!proxyUrl.trim()}
           style={{
             padding: '10px 20px',
-            background: proxyUrl.trim() ? 'var(--accent)' : 'var(--bg-tertiary)',
-            color: proxyUrl.trim() ? '#fff' : 'var(--text-muted)',
+            background: proxyUrl.trim() ? 'var(--stamp-red)' : 'var(--paper-warm)',
+            color: proxyUrl.trim() ? 'var(--paper-light)' : 'var(--ink-muted)',
             border: 'none',
-            borderRadius: '8px',
-            fontSize: 'var(--font-size-sm)',
+            borderRadius: '4px',
+            fontSize: 'var(--text-sm)',
             fontWeight: '600',
             cursor: proxyUrl.trim() ? 'pointer' : 'default',
             transition: 'all 0.2s',

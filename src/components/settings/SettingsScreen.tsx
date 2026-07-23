@@ -1,119 +1,71 @@
-// ============================================================
-//  设置页面 — 通用 / API / 预设
-// ============================================================
 import { useState, useRef, useCallback } from 'react';
-import { ArrowLeft, Cpu, Sliders, FileText } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useGame } from '../../context/GameContext';
 import { useConfigStore } from '../../stores/configStore';
 import GeneralSettingsTab from './GeneralSettingsTab';
 import ApiSettingsTab from './ApiSettingsTab';
 import PresetSettingsTab from './PresetSettingsTab';
+import ImageGenSettingsTab from './ImageGenSettingsTab';
 import type { ApiSettingsRef } from './apiSettings';
 
-type SettingsTab = 'general' | 'api' | 'preset';
-
-const TABS: { id: SettingsTab; icon: typeof Sliders; label: string }[] = [
-  { id: 'general', icon: Sliders, label: '通用' },
-  { id: 'api', icon: Cpu, label: 'API' },
-  { id: 'preset', icon: FileText, label: '预设' },
+const TABS = [
+  { id: 'general', label: '通用' },
+  { id: 'api', label: 'API' },
+  { id: 'preset', label: '预设' },
+  { id: 'imagegen', label: '文生图' },
 ];
 
 export default function SettingsScreen() {
   const { actions } = useGame();
-  const { t } = useConfigStore();
-  const apiConfig = useConfigStore(s => s.apiConfig);
   const setApiConfig = useConfigStore(s => s.setApiConfig);
-  const [tab, setTab] = useState<SettingsTab>('general');
-
   const apiRef = useRef<ApiSettingsRef>(null);
-
-  const handleSave = useCallback(() => {
-    if (tab === 'api') {
-      const apiValues = apiRef.current?.getValues();
-      if (apiValues) setApiConfig(apiValues.config);
-    }
-    actions.setScreen('menu');
-  }, [actions, setApiConfig, tab]);
+  const [tab, setTab] = useState('general');
 
   const handleBack = useCallback(() => {
     actions.setScreen('menu');
   }, [actions]);
 
+  const handleSaveApi = useCallback(() => {
+    const values = apiRef.current?.getValues();
+    if (values) setApiConfig(values.config);
+    actions.setScreen('menu');
+  }, [actions, setApiConfig]);
+
   return (
-    <div style={{
-      height: '100vh',
-      background: 'var(--bg-primary)',
-      color: 'var(--text-primary)',
-      display: 'flex',
-      flexDirection: 'column',
-      overflow: 'hidden',
-    }}>
-      {/* 顶栏 */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 12,
-        padding: '12px 16px',
-        borderBottom: '1px solid var(--border)',
-        background: 'var(--bg-secondary)',
-        flexShrink: 0,
-      }}>
-        <button className="btn-ghost" onClick={handleBack} style={{ minHeight: 40, padding: '4px 8px' }}>
+    <div className="settings-screen">
+      <div className="settings-header">
+        <button className="btn-ghost btn-icon" onClick={handleBack}>
           <ArrowLeft size={18} />
         </button>
-        <h1 style={{ fontSize: 'var(--font-size-lg)', fontWeight: 600, flex: 1 }}>
-          {t('settings.title')}
-        </h1>
-        <button className="btn-primary btn-sm" onClick={handleSave} style={{ minHeight: 36, padding: '6px 20px' }}>
-          {t('common.save')}
-        </button>
+        <h1 className="settings-header__title">设置</h1>
       </div>
 
-      {/* Tab 切换 */}
-      <div style={{
-        display: 'flex',
-        gap: 8,
-        padding: '12px 16px',
-        borderBottom: '1px solid var(--border)',
-        background: 'var(--bg-secondary)',
-        flexShrink: 0,
-      }}>
-        {TABS.map(tabItem => {
-          const Icon = tabItem.icon;
-          return (
+      <div className="settings-body">
+        <div className="settings-tabs">
+          {TABS.map(t => (
             <button
-              key={tabItem.id}
-              onClick={() => setTab(tabItem.id)}
-              style={{
-                display: 'flex', alignItems: 'center', gap: 6,
-                padding: '8px 16px', borderRadius: 20,
-                border: '1px solid ' + (tab === tabItem.id ? 'var(--accent)' : 'var(--border)'),
-                background: tab === tabItem.id ? 'var(--accent-dim)' : 'transparent',
-                color: tab === tabItem.id ? 'var(--accent)' : 'var(--text-secondary)',
-                cursor: 'pointer', fontSize: 'var(--font-size-sm)',
-                transition: 'all 150ms',
-              }}
+              key={t.id}
+              onClick={() => setTab(t.id)}
+              className={'settings-tab' + (tab === t.id ? ' settings-tab--active' : '')}
             >
-              <Icon size={14} />
-              {tabItem.label}
+              {t.label}
             </button>
-          );
-        })}
-      </div>
+          ))}
+        </div>
 
-      {/* 内容 */}
-      <div style={{ flex: 1, overflow: 'auto', padding: '16px' }}>
-        {tab === 'general' && <GeneralSettingsTab />}
-        {tab === 'api' && (
-          <ApiSettingsTab
-            ref={apiRef}
-            initialConfig={apiConfig}
-            t={t}
-            onSave={handleSave}
-            onBack={handleBack}
-          />
-        )}
-        {tab === 'preset' && <PresetSettingsTab />}
+        <div className="settings-content">
+          {tab === 'general' && <GeneralSettingsTab />}
+          {tab === 'api' && (
+            <ApiSettingsTab
+              ref={apiRef}
+              initialConfig={null}
+              onSave={handleSaveApi}
+              onBack={handleBack}
+            />
+          )}
+          {tab === 'preset' && <PresetSettingsTab />}
+          {tab === 'imagegen' && <ImageGenSettingsTab />}
+        </div>
       </div>
     </div>
   );

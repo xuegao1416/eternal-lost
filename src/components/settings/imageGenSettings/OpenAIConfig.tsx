@@ -44,7 +44,7 @@ export default function OpenAIConfig({ config, updateConfig }: ConfigSectionProp
         <Field label="兼容 API 地址" hint="填写基础地址即可，发送请求时会自动补到 /images/generations">
           <input
             className="input-field"
-            style={{ width: '100%', padding: '6px 10px' }}
+            style={{ width: '100%' }}
             value={config.openaiCompatibleApiUrl}
             onChange={(e) => updateConfig('openaiCompatibleApiUrl', e.target.value)}
             placeholder={OPENAI_COMPATIBLE_IMAGE_PROVIDERS[config.openaiCompatibleProvider]?.defaultApiUrl || 'https://api.example.com/v1'}
@@ -59,7 +59,7 @@ export default function OpenAIConfig({ config, updateConfig }: ConfigSectionProp
             <input
               className="input-field"
               type={showApiKey ? 'text' : 'password'}
-              style={{ flex: 1, padding: '6px 10px' }}
+              style={{ flex: 1 }}
               value={config.openaiCompatibleApiKey}
               onChange={(e) => updateConfig('openaiCompatibleApiKey', e.target.value)}
               placeholder="sk-..."
@@ -74,7 +74,7 @@ export default function OpenAIConfig({ config, updateConfig }: ConfigSectionProp
         <Field label="模型">
           <input
             className="input-field"
-            style={{ width: '100%', padding: '6px 10px' }}
+            style={{ width: '100%' }}
             value={config.openaiCompatibleModel}
             onChange={(e) => updateConfig('openaiCompatibleModel', e.target.value)}
             placeholder={OPENAI_COMPATIBLE_IMAGE_PROVIDERS[config.openaiCompatibleProvider]?.modelPlaceholder || 'your-image-model'}

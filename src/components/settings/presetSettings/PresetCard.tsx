@@ -7,17 +7,17 @@ export function PresetCard({ name, desc, promptCount, regexCount, active, builti
     <div style={{
       display: 'flex', alignItems: 'center', gap: '10px',
       padding: '12px 14px', borderRadius: '10px',
-      border: active ? '2px solid var(--accent)' : '1px solid var(--border)',
-      background: active ? 'var(--accent-dim)' : 'var(--bg-secondary)',
+      border: active ? '2px solid var(--stamp-red)' : '1px solid var(--border)',
+      background: active ? 'var(--stamp-red-dim)' : 'var(--paper-light)',
       cursor: 'pointer', transition: 'border-color 0.15s',
     }} onClick={onSelect}>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontWeight: '600', fontSize: 'var(--font-size-md)' }}>
-          {active && <span style={{ color: 'var(--accent)', marginRight: '6px' }}>●</span>}
+        <div style={{ fontWeight: '600', fontSize: 'var(--text-md)' }}>
+          {active && <span style={{ color: 'var(--stamp-red)', marginRight: '6px' }}>●</span>}
           {name}
         </div>
-        {desc && <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{desc}</div>}
-        <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-muted)', marginTop: '4px', display: 'flex', gap: '12px' }}>
+        {desc && <div style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-muted)', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{desc}</div>}
+        <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--ink-muted)', marginTop: '4px', display: 'flex', gap: '12px' }}>
           <span>📝 {promptCount} 条目</span>
           <span>🔧 {regexCount} 正则</span>
         </div>
@@ -30,7 +30,7 @@ export function PresetCard({ name, desc, promptCount, regexCount, active, builti
           <Download size={14} />
         </button>
         {onDelete && (
-          <button onClick={(e) => { e.stopPropagation(); onDelete(); }} style={{ ...iconBtnStyle, color: 'var(--danger)' }} title="删除">
+          <button onClick={(e) => { e.stopPropagation(); onDelete(); }} style={{ ...iconBtnStyle, color: 'var(--stamp-red)' }} title="删除">
             <Trash2 size={14} />
           </button>
         )}

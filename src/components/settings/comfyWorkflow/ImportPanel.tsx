@@ -80,7 +80,7 @@ export function ImportPanel({
             {connecting ? '连接中...' : '重新连接验证'}
           </Button>
           {importError && (
-            <span style={{ color: 'var(--danger)', fontSize: '12px' }}>
+            <span style={{ color: 'var(--stamp-red)', fontSize: '12px' }}>
               <XCircle size={12} style={{ verticalAlign: 'middle', marginRight: '2px' }} />
               {importError}
             </span>
@@ -97,7 +97,7 @@ export function ImportPanel({
           <div style={{
             padding: '8px 12px',
             borderRadius: '6px',
-            background: 'var(--bg-secondary)',
+            background: 'var(--paper-light)',
             border: '1px solid var(--border)',
             fontSize: '12px',
             display: 'flex',
@@ -105,7 +105,7 @@ export function ImportPanel({
             gap: '8px',
           }}>
             {workflowSummary.map((item) => (
-              <span key={item.label} style={{ color: 'var(--text-secondary)' }}>
+              <span key={item.label} style={{ color: 'var(--ink-faded)' }}>
                 <strong>{item.label}:</strong> {item.value}
               </span>
             ))}

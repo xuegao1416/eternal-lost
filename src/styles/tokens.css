@@ -1,43 +1,67 @@
 /* ═══════════════════════════════════════════════
-   设计 Token — 永恒迷途录（浅黄 + 白）
+   设计 Token — 永恒迷途录（SCP 档案/文档风）
    ═══════════════════════════════════════════════ */
 
 :root {
-  /* ─── 发黄的墙纸 + 老旧荧光灯 ─── */
-  --bg-primary: #f8f3e4;
-  --bg-secondary: #fffdf5;
-  --bg-tertiary: #f0e8d0;
-  --bg-deep: #e8e0c8;
-  --bg-elevated: #fffdf5;
-  --text-primary: #3a3020;
-  --text-secondary: #6a5a40;
-  --text-muted: #9a8a68;
-  --accent: #c8a030;
-  --accent-dim: rgba(200, 160, 48, 0.1);
-  --accent-glow: rgba(200, 160, 48, 0.15);
-  --border: #d8ccA0;
-  --danger: #c04030;
-  --warning: #c09030;
-  --success: #5a8a40;
-  --color-on-accent: #fffdf5;
+  /* ── Surface / 纸色主题 ── */
+  --paper: #F5F0E6;              /* 主背景——旧档案纸 */
+  --paper-light: #FAF6EF;        /* 表面/卡片层——略白的新纸 */
+  --paper-warm: #F0E9D8;        /* 暖色表面——旧报纸边缘 */
+  --paper-deep: #E8DFCC;        /* 深深旧纸，用于侧栏/分割 */
 
-  /* 语义色 tint */
-  --danger-bg:        color-mix(in srgb, var(--danger) 12%, transparent);
-  --danger-bg-soft:   color-mix(in srgb, var(--danger) 8%,  transparent);
-  --danger-bg-hover:  color-mix(in srgb, var(--danger) 28%, transparent);
-  --danger-strong:    var(--danger);
-  --warning-bg:       color-mix(in srgb, var(--warning) 12%, transparent);
-  --warning-bg-soft:  color-mix(in srgb, var(--warning) 8%,  transparent);
-  --success-bg:       color-mix(in srgb, var(--success) 12%, transparent);
-  --success-bg-soft:  color-mix(in srgb, var(--success) 8%,  transparent);
-  --success-dim:      color-mix(in srgb, var(--success) 20%, var(--bg-primary));
+  /* ── Ink / 墨色 ── */
+  --ink: #2C2416;                /* 主文本——干涸的墨 */
+  --ink-faded: #7A7265;         /* 次级文本——褪色墨 */
+  --ink-muted: #A89F92;         /* 元数据/占位——几乎消失的印迹 */
 
-  /* ─── 字体 ─── */
-  --font-display: 'Noto Serif SC', 'Source Han Serif SC', 'STSong', serif;
-  --font-body: 'Noto Sans SC', 'Source Han Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  /* ── Accent / 标注色 ── */
+  --stamp-red: #8B3A3A;         /* 红印章——"机密" "已阅" "危险" */
+  --stamp-red-light: #C97A5A;   /* 褪色红标注 */
+  --stamp-red-dim: rgba(139, 58, 58, 0.1);
+  --stamp-red-bg: rgba(139, 58, 58, 0.06);
+  --stain-warm: #C9A96E;        /* 茶渍/咖啡渍点缀色 */
 
-  /* ─── 间距 ─── */
+  /* ── Semantic / 语义色 ── */
+  --success: #3A5F3A;           /* 安全/确认——档案墨水绿 */
+  --success-bg: rgba(58, 95, 58, 0.08);
+  --warn: #8B7340;              /* 警告——旧文件上的黄斑 */
+  --warn-bg: rgba(139, 115, 64, 0.08);
+  --danger: #8B3A3A;            /* 危险——红印章色 */
+  --danger-bg: rgba(139, 58, 58, 0.08);
+  --info: #4A6B7A;              /* 信息——褪色蓝墨水 */
+  --info-bg: rgba(74, 107, 122, 0.08);
+
+  /* ── Border / 边框 ── */
+  --border: #D4C9B8;            /* 默认边框——纸页边缘 */
+  --border-light: #E2D9CC;      /* 细分隔线——纸纤维感 */
+
+  /* ── Threshold / 阈限暗主题 ── */
+  --liminal-bg: #1A1612;        /* 深层阴暗背景 */
+  --liminal-surface: #25211C;   /* 略亮表面 */
+  --liminal-elevated: #302A22;  /* 更亮层 */
+  --liminal-ink: #D6CBB8;       /* 昏暗中的文字 */
+  --liminal-ink-faded: #8A7E6E; /* 次级文字 */
+  --liminal-border: #3A342C;    /* 暗边框 */
+  --liminal-accent: #6B5B4A;    /* 暖色点缀——微弱的灯 */
+
+  /* ── Typography / 字体体系 ── */
+  --font-display: 'Playfair Display', 'Noto Serif SC', Georgia, 'Times New Roman', serif;
+  --font-body: 'Source Serif 4', 'Noto Serif SC', Georgia, 'Times New Roman', serif;
+  --font-mono: 'Cutive Mono', 'Noto Sans Mono', 'Courier New', Courier, monospace;
+  --font-found: 'Special Elite', 'Cutive Mono', Courier, monospace;
+
+  /* ── Type Scale / 字号层级 ── */
+  --text-xs:   0.625rem;  /* 10px */
+  --text-sm:   0.75rem;   /* 12px */
+  --text-base: 0.875rem;  /* 14px */
+  --text-md:   1rem;      /* 16px */
+  --text-lg:   1.125rem;  /* 18px */
+  --text-xl:   1.5rem;    /* 24px */
+  --text-2xl:  2rem;      /* 32px */
+  --text-3xl:  2.5rem;    /* 40px */
+  --text-4xl:  3.5rem;    /* 56px */
+
+  /* ── Spacing / 间距 ── */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -46,55 +70,39 @@
   --space-6: 24px;
   --space-8: 32px;
   --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
 
-  /* ─── 排版 ─── */
-  --font-size-xs: 0.72rem;
-  --font-size-sm: 0.78rem;
-  --font-size-base: 0.82rem;
-  --font-size-md: 0.88rem;
-  --font-size-lg: 0.95rem;
-  --font-size-xl: 1.1rem;
+  /* ── Radius / 圆角 ── */
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-md: 4px;
 
-  /* ─── 圆角 ─── */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-full: 50%;
+  /* ── Elevation / 深度 ── */
+  --elev-flat: none;
+  --elev-stack: 0 1px 0 var(--border);
+  --elev-pinned: 1px 1px 0 rgba(44, 36, 22, 0.06);
+  --elev-overlay: 0 2px 12px rgba(44, 36, 22, 0.12);
 
-  /* ─── 阴影 ─── */
-  --shadow-xs: 0 1px 2px rgba(60, 50, 30, 0.06);
-  --shadow-sm: 0 1px 3px rgba(60, 50, 30, 0.08);
-  --shadow-md: 0 4px 12px rgba(60, 50, 30, 0.1);
-  --shadow-lg: 0 8px 24px rgba(60, 50, 30, 0.14);
-  --shadow-glow: 0 0 0 3px var(--accent-dim);
+  /* ── Motion / 动效 ── */
+  --motion-slow: 400ms;
+  --motion-base: 250ms;
+  --motion-fast: 150ms;
+  --ease-standard: ease;
+  --ease-out: ease-out;
+  --ease-ink: cubic-bezier(0.3, 0, 0.2, 1);
+  --ease-mechanical: cubic-bezier(0.4, 0, 0.6, 1);
 
-  /* ─── 动画 ─── */
-  --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --duration-slow: 400ms;
-  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* ── Focus / 焦点 ── */
+  --focus-ring: 0 0 0 2px var(--stamp-red), 0 0 0 4px var(--paper-light);
 
-  /* ─── 布局 ─── */
-  --right-panel-width: 340px;
+  /* ── Layout / 布局 ── */
+  --container-max: 1200px;
+  --container-narrow: 720px;
+  --sidebar-width: 48px;
+  --sidebar-width-mobile: 44px;
+  --panel-right-width: 300px;
   --touch-min: 44px;
   --mobile-header-height: 48px;
-
-  /* ─── UI Settings ─── */
-  --font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
-  --ui-font-size: 14px;
-  --body-font-size: 15px;
-  --body-line-height: 1.6;
-
-  /* ─── 后室专用 ─── */
-  --fluorescent-yellow: #d4b040;
-  --fluorescent-dim: rgba(212, 176, 64, 0.12);
-  --wallpaper-pattern: rgba(200, 180, 120, 0.06);
-
-  /* 断点参考 */
-  --bp-xs: 360px;
-  --bp-sm: 480px;
-  --bp-md: 768px;
-  --bp-lg: 1024px;
 }

@@ -105,6 +105,18 @@ export function assembleSystemPrompt(
   // ─── 3. 动态上下文 ───
   const contextParts: string[] = [];
 
+  // 降临者档案
+  const profile = exploration.characterProfile;
+  if (profile) {
+    contextParts.push(`## 降临者档案
+- 姓名：${profile.name}
+- 性别：${profile.gender}
+- 背景：${profile.background}
+- 外貌/穿着：${profile.appearance}
+- 随身物品：${profile.items}
+- 性格倾向：${profile.personality}`);
+  }
+
   // 玩家已发现的规则
   if (exploration.discoveredRules.length > 0) {
     contextParts.push(`## 玩家已发现的规则\n${exploration.discoveredRules.map(r =>

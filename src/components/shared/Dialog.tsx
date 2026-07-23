@@ -101,7 +101,7 @@ export function useDialog() {
               <div className={`${s.iconBox} ${dialog.danger ? s.iconBoxDanger : s.iconBoxDefault}`}>
                 <Icon
                   size={16}
-                  color={dialog.danger ? 'var(--danger)' : 'var(--accent, #d4af37)'}
+                  color={dialog.danger ? 'var(--stamp-red)' : 'var(--ink)'}
                   className={dialog.type === 'loading' ? s.spinIcon : undefined}
                 />
               </div>

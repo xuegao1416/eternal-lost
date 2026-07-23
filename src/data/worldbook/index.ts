@@ -4,15 +4,17 @@
 
 import { registerLevelBooks } from '../../worldbook/levelWorldBook';
 import { LEVEL_0_WORLD_BOOK } from './level-0';
+import { LEVEL_1_WORLD_BOOK } from './level-1';
+import { LEVEL_2_WORLD_BOOK } from './level-2';
+import { LEVEL_3_WORLD_BOOK } from './level-3';
 
 // ─── 注册所有 Level 世界书 ───
 
 const ALL_LEVEL_BOOKS = [
   LEVEL_0_WORLD_BOOK,
-  // TODO: 后续添加更多 Level
-  // LEVEL_1_WORLD_BOOK,
-  // LEVEL_2_WORLD_BOOK,
-  // ...
+  LEVEL_1_WORLD_BOOK,
+  LEVEL_2_WORLD_BOOK,
+  LEVEL_3_WORLD_BOOK,
 ];
 
 /** 初始化世界书系统 */

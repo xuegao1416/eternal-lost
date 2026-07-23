@@ -42,7 +42,7 @@ export default function ComfyConfig({ config, updateConfig }: ConfigSectionProps
           <div style={{ display: 'flex', gap: '8px' }}>
             <input
               className="input-field"
-              style={{ flex: 1, padding: '6px 10px' }}
+              style={{ flex: 1 }}
               value={config.comfyUrl}
               onChange={(e) => updateConfig('comfyUrl', e.target.value)}
               placeholder="http://localhost:8188"
@@ -101,7 +101,7 @@ export default function ComfyConfig({ config, updateConfig }: ConfigSectionProps
               <div key={idx} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                 <select
                   className="input-field"
-                  style={{ flex: 1, padding: '6px 10px' }}
+                  style={{ flex: 1 }}
                   value={lora.name}
                   onChange={(e) => {
                     const newLoras = [...config.comfyLoras];
@@ -117,7 +117,7 @@ export default function ComfyConfig({ config, updateConfig }: ConfigSectionProps
                 <input
                   className="input-field"
                   type="number"
-                  style={{ width: '70px', padding: '6px 10px' }}
+                  style={{ width: '70px' }}
                   value={lora.strength_model}
                   step={0.1}
                   title="Model Strength"
@@ -130,7 +130,7 @@ export default function ComfyConfig({ config, updateConfig }: ConfigSectionProps
                 <input
                   className="input-field"
                   type="number"
-                  style={{ width: '70px', padding: '6px 10px' }}
+                  style={{ width: '70px' }}
                   value={lora.strength_clip}
                   step={0.1}
                   title="Clip Strength"

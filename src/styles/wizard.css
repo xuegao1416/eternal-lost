@@ -1,0 +1,169 @@
+/* ═══════════════════════════════════════════════
+   开场向导布局 — OpeningWizard
+   ═══════════════════════════════════════════════ */
+
+.wizard-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--paper);
+  padding: var(--space-5);
+}
+
+.wizard-container {
+  width: 100%;
+  max-width: var(--container-narrow);
+  animation: fadeIn var(--motion-base) var(--ease-out);
+}
+
+/* ─── 步骤指示器 ─── */
+.wizard-step-indicator {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink-faded);
+  margin-bottom: var(--space-6);
+}
+.wizard-step-indicator::before {
+  content: '── ';
+  color: var(--border);
+}
+.wizard-step-indicator::after {
+  content: ' ──';
+  color: var(--border);
+}
+
+/* ─── 纯文本进度条 ─── */
+.wizard-progress {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink);
+  margin-bottom: var(--space-6);
+  letter-spacing: 0.05em;
+}
+
+.wizard-progress__done {
+  color: var(--ink);
+}
+.wizard-progress__pending {
+  color: var(--ink-muted);
+}
+
+/* ─── 问题卡片 ─── */
+.wizard-card {
+  background: var(--paper-light);
+  border: 1px solid var(--border);
+  padding: var(--space-6);
+  animation: fadeInUp var(--motion-base) var(--ease-out);
+}
+
+.wizard-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--ink);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.wizard-card__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  color: var(--ink-faded);
+  font-style: italic;
+  margin-bottom: var(--space-6);
+  line-height: 1.5;
+}
+
+/* ─── 单选（打字机风格） ─── */
+.wizard-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.wizard-radio {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  color: var(--ink-faded);
+  user-select: none;
+  padding: var(--space-1) 0;
+  transition: color var(--motion-fast);
+}
+.wizard-radio:hover {
+  color: var(--ink);
+}
+.wizard-radio--selected {
+  color: var(--ink);
+}
+.wizard-radio__input {
+  display: none;
+}
+.wizard-radio__marker {
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  color: var(--ink-faded);
+  min-width: 1.5em;
+}
+.wizard-radio--selected .wizard-radio__marker {
+  color: var(--stamp-red);
+}
+
+/* ─── 多选 ─── */
+.wizard-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+/* ─── 操作按钮 ─── */
+.wizard-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-light);
+}
+
+/* ─── 确认摘要 ─── */
+.wizard-summary {
+  margin-bottom: var(--space-6);
+}
+.wizard-summary__row {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  border-bottom: 1px dashed var(--border-light);
+}
+.wizard-summary__label {
+  color: var(--ink-faded);
+  min-width: 80px;
+}
+.wizard-summary__value {
+  color: var(--ink);
+}
+
+/* ─── 输入框变体 ─── */
+.wizard-input-wrap {
+  margin-bottom: var(--space-6);
+}
+.wizard-input-wrap::before {
+  content: '> ';
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  color: var(--ink-faded);
+}
+.wizard-input-wrap .input-field {
+  display: inline;
+  width: auto;
+  min-width: 240px;
+}

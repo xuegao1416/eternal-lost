@@ -17,28 +17,19 @@ export default class ErrorBoundary extends Component<Props, State> {
   override render() {
     if (this.state.hasError) {
       return (
-        <div style={{
-          display: 'flex', flexDirection: 'column', alignItems: 'center',
-          justifyContent: 'center', height: '100vh', padding: 32,
-          background: 'var(--bg-primary)', color: 'var(--text-primary)',
-        }}>
-          <h1 style={{ fontSize: '1.5rem', marginBottom: 16, color: 'var(--danger)' }}>
-            出错了
-          </h1>
-          <pre style={{
-            background: 'var(--bg-secondary)', padding: 16, borderRadius: 8,
-            fontSize: '0.85rem', maxWidth: 600, overflow: 'auto',
-            color: 'var(--text-secondary)', whiteSpace: 'pre-wrap',
-          }}>
-            {this.state.error?.message}
-          </pre>
-          <button
-            className="btn-primary"
-            style={{ marginTop: 24 }}
-            onClick={() => { this.setState({ hasError: false, error: null }); }}
-          >
-            重试
-          </button>
+        <div className="error-boundary">
+          <div className="error-boundary__card">
+            <h1 className="error-boundary__title">[!] 出错了</h1>
+            <pre className="error-boundary__detail">
+              {this.state.error?.message}
+            </pre>
+            <button
+              className="btn btn-primary btn-typewriter"
+              onClick={() => { this.setState({ hasError: false, error: null }); }}
+            >
+              重试
+            </button>
+          </div>
         </div>
       );
     }

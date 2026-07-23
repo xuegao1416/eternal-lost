@@ -28,8 +28,8 @@ export function PresetCard({
         justifyContent: 'space-between',
         padding: '8px 12px',
         borderRadius: '6px',
-        background: isActive ? 'var(--accent-dim)' : 'var(--bg-secondary)',
-        border: isActive ? '1px solid var(--accent)' : '1px solid var(--border)',
+        background: isActive ? 'var(--stamp-red-dim)' : 'var(--paper-light)',
+        border: isActive ? '1px solid var(--stamp-red)' : '1px solid var(--border)',
         cursor: 'pointer',
       }}
       onClick={onActivate}
@@ -44,20 +44,20 @@ export function PresetCard({
         }}>
           {preset.name}
         </span>
-        <span style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>
+        <span style={{ fontSize: '11px', color: 'var(--ink-faded)' }}>
           {nodeCount} 节点
         </span>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
         {hasFatal ? (
-          <XCircle size={14} color="var(--danger)" />
+          <XCircle size={14} color="var(--stamp-red)" />
         ) : hasMissing ? (
-          <AlertTriangle size={14} color="var(--warning)" />
+          <AlertTriangle size={14} color="var(--warn)" />
         ) : (
           <CheckCircle size={14} color="var(--success)" />
         )}
         {isActive && (
-          <span style={{ fontSize: '11px', color: 'var(--accent)', fontWeight: 500 }}>使用中</span>
+          <span style={{ fontSize: '11px', color: 'var(--stamp-red)', fontWeight: 500 }}>使用中</span>
         )}
         <div onClick={(e) => e.stopPropagation()}>
           <Button onClick={onEdit}>编辑</Button>

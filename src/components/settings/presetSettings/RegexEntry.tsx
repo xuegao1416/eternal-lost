@@ -16,7 +16,7 @@ export function RegexEntry({ script, expanded, builtin, onToggleExpand, onUpdate
   return (
     <div style={{
       borderRadius: '8px', border: '1px solid var(--border)',
-      background: script.disabled ? 'var(--bg-primary)' : 'var(--bg-secondary)',
+      background: script.disabled ? 'var(--paper)' : 'var(--paper-light)',
       opacity: script.disabled ? 0.55 : 1,
     }}>
       {/* 正则头部 */}
@@ -25,19 +25,19 @@ export function RegexEntry({ script, expanded, builtin, onToggleExpand, onUpdate
         padding: '8px 12px', cursor: 'pointer',
       }} onClick={onToggleExpand}>
         {expanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
-        <span style={{ flex: 1, fontWeight: '500', fontSize: 'var(--font-size-sm)', fontFamily: 'monospace' }}>
+        <span style={{ flex: 1, fontWeight: '500', fontSize: 'var(--text-sm)', fontFamily: 'monospace' }}>
           {script.scriptName}
         </span>
 
         {/* 通道标记 */}
-        <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-muted)' }}>
+        <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--ink-muted)' }}>
           {script.markdownOnly ? '显示' : script.promptOnly ? 'API' : '全部'}
         </span>
 
         {!builtin && (
           <>
             <button onClick={(e) => { e.stopPropagation(); onUpdate({ disabled: !script.disabled }); }} style={iconBtnStyle}>
-              {script.disabled ? <EyeOff size={14} /> : <Eye size={14} color="var(--accent)" />}
+              {script.disabled ? <EyeOff size={14} /> : <Eye size={14} color="var(--stamp-red)" />}
             </button>
             <button onClick={(e) => { e.stopPropagation(); onDelete(); }} style={{ ...iconBtnStyle, color: 'var(--danger)' }}>
               <Trash2 size={14} />

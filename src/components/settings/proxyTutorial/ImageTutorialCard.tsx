@@ -19,9 +19,9 @@ export function ImageTutorialCard() {
   return (
     <div
       style={{
-        background: 'var(--bg-secondary)',
+        background: 'var(--paper-light)',
         border: '1px solid var(--border)',
-        borderRadius: '12px',
+        borderRadius: '4px',
         marginBottom: '20px',
         overflow: 'hidden',
       }}
@@ -37,14 +37,14 @@ export function ImageTutorialCard() {
           background: 'none',
           border: 'none',
           cursor: 'pointer',
-          color: 'var(--text-primary)',
-          fontSize: 'var(--font-size-md)',
+          color: 'var(--ink)',
+          fontSize: 'var(--text-md)',
           fontWeight: '600',
           textAlign: 'left',
         }}
       >
-        <Images size={18} color="var(--accent)" />
-        <span style={{ flex: 1 }}>📷 图片教程（9 步截图）</span>
+        <Images size={18} color="var(--stamp-red)" />
+        <span style={{ flex: 1 }}>图片教程（9 步截图）</span>
         {expanded ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
       </button>
       {expanded && (
@@ -53,9 +53,9 @@ export function ImageTutorialCard() {
             {IMAGE_STEPS.map((step, i) => (
               <div key={i}>
                 <div style={{
-                  fontSize: 'var(--font-size-sm)',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: '500',
-                  color: 'var(--accent)',
+                  color: 'var(--stamp-red)',
                   marginBottom: '8px',
                   display: 'flex',
                   alignItems: 'center',
@@ -64,13 +64,13 @@ export function ImageTutorialCard() {
                   <span style={{
                     width: '22px',
                     height: '22px',
-                    borderRadius: 'var(--radius-md)',
-                    background: 'var(--accent)',
-                    color: '#fff',
+                    borderRadius: 'var(--radius-sm)',
+                    background: 'var(--stamp-red)',
+                    color: 'var(--paper-light)',
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: 'var(--font-size-xs)',
+                    fontSize: 'var(--text-xs)',
                     fontWeight: '600',
                   }}>{i + 1}</span>
                   {step.label}

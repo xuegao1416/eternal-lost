@@ -1,52 +1,45 @@
+// ============================================================
+//  设置页共享 UI 原语 — SCP 档案风
+// ============================================================
+
+/* ─── Section ─── */
 export function Section({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
   return (
-    <div style={{ marginBottom: '18px' }}>
-      <div style={{
-        display: 'flex', alignItems: 'center', gap: '8px',
-        marginBottom: '10px', fontWeight: '600', fontSize: 'var(--font-size-md)',
-      }}>
-        <span style={{ display: 'flex', alignItems: 'center', color: 'var(--text-muted)' }}>{icon}</span>{title}
+    <div className="setting-section">
+      <div className="setting-section__title">
+        <span className="section-icon">{icon}</span>
+        {title}
       </div>
-      <div style={{
-        background: 'var(--bg-secondary)', border: '1px solid var(--border)',
-        borderRadius: 'var(--radius-md)', overflow: 'hidden',
-      }}>
-        {children}
-      </div>
+      {children}
     </div>
   );
 }
 
+/* ─── SettingRow ─── */
 export function SettingRow({ label, desc, children, stacked }: { label: string; desc?: string; children: React.ReactNode; stacked?: boolean }) {
-  // 纵向堆叠模式 — 用于窄容器（如侧边栏），label 在上、control 在下占满宽度
   if (stacked) {
     return (
-      <div style={{
-        padding: '10px 14px', borderBottom: '1px solid var(--border)',
-      }}>
-        <div style={{ fontSize: 'var(--font-size-md)', fontWeight: '600', marginBottom: desc ? '2px' : '0', color: 'var(--text-primary)' }}>{label}</div>
-        {desc && <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', marginBottom: '8px', lineHeight: '1.5' }}>{desc}</div>}
-        <div style={{ width: '100%' }}>{children}</div>
+      <div className="setting-row setting-row--stacked">
+        <div>
+          <div className="setting-row__label">{label}</div>
+          {desc && <div className="setting-row__desc">{desc}</div>}
+        </div>
+        <div className="setting-row__control">{children}</div>
       </div>
     );
   }
-  // 默认横向布局 — label 左、control 右
   return (
-    <div style={{
-      display: 'flex', alignItems: 'center', padding: '10px 16px',
-      borderBottom: '1px solid var(--border)', minHeight: '44px',
-    }}>
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: 'var(--font-size-md)', fontWeight: '500' }}>{label}</div>
-        {desc && <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-muted)', marginTop: '1px' }}>{desc}</div>}
+    <div className="setting-row">
+      <div>
+        <div className="setting-row__label">{label}</div>
+        {desc && <div className="setting-row__desc">{desc}</div>}
       </div>
-      <div style={{ flexShrink: 0 }}>
-        {children}
-      </div>
+      <div className="setting-row__control">{children}</div>
     </div>
   );
 }
 
+/* ─── SegmentedControl（分段选择） ─── */
 export function SegmentedControl({ options, value, onChange }: {
   options: { label: string; value: string }[];
   value: string;
@@ -58,7 +51,7 @@ export function SegmentedControl({ options, value, onChange }: {
         <button
           key={opt.value}
           onClick={() => onChange(opt.value)}
-          className={`segmented-control-btn${value === opt.value ? ' active' : ''}`}
+          className={'segmented-control-btn' + (value === opt.value ? ' active' : '')}
         >
           {opt.label}
         </button>
@@ -67,6 +60,7 @@ export function SegmentedControl({ options, value, onChange }: {
   );
 }
 
+/* ─── Select（打字机风格下拉） ─── */
 export function Select({ options, value, onChange, width }: {
   options: { label: string; value: string }[];
   value: string;
@@ -74,92 +68,86 @@ export function Select({ options, value, onChange, width }: {
   width?: string;
 }) {
   return (
-    <select
-      value={value}
-      onChange={e => onChange(e.target.value)}
-      className="input-field"
-      style={{
-        padding: '5px 10px',
-        width: width || 'auto',
-        cursor: 'pointer',
-      }}
-    >
-      {options.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-    </select>
+    <div className="setting-select-wrap" style={width ? { width } : undefined}>
+      <select
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        className="setting-select"
+      >
+        {options.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+      </select>
+      <span className="setting-select-arrow">▼</span>
+    </div>
   );
 }
 
-export function Toggle({ value, onChange }: { value: boolean; onChange: (v: boolean) => void }) {
+/* ─── Toggle 开关 ─── */
+export function Toggle({ value, onChange, ariaLabel = '' }: { value: boolean; onChange: (v: boolean) => void; ariaLabel?: string }) {
   return (
     <button
       type="button"
       onClick={() => onChange(!value)}
-      className={`toggle-switch${value ? ' on' : ''}`}
+      className={'toggle-switch' + (value ? ' on' : '')}
       role="switch"
       aria-checked={value}
+      aria-label={ariaLabel}
     >
       <div className="toggle-switch-knob" />
     </button>
   );
 }
 
-/* ─── FieldGrid：两列表单网格 ─── */
+/* ─── Checkbox（[×] 风格） ─── */
+export function Checkbox({ label, value, onChange }: { label: string; value: boolean; onChange: (v: boolean) => void }) {
+  return (
+    <label className="setting-checkbox">
+      <span className="setting-checkbox__box">{value ? '×' : ' '}</span>
+      <span>{label}</span>
+      <input type="checkbox" checked={value} onChange={e => onChange(e.target.checked)} className="setting-checkbox__input" />
+    </label>
+  );
+}
+
+/* ─── FieldGrid ─── */
 export function FieldGrid({ children, columns = 2 }: { children: React.ReactNode; columns?: 1 | 2 }) {
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: columns === 2 ? '1fr 1fr' : '1fr',
-      gap: '12px', padding: '12px 16px',
-    }}>
+    <div className={'field-grid' + (columns === 1 ? ' field-grid--single' : '')}>
       {children}
     </div>
   );
 }
 
-/* ─── Field：字段组（label + 控件 + hint） ─── */
+/* ─── Field ─── */
 export function Field({ label, hint, children, span }: {
   label: string; hint?: string; children: React.ReactNode; span?: 1 | 2;
 }) {
   return (
-    <div style={{
-      display: 'flex', flexDirection: 'column', gap: '5px',
-      gridColumn: span === 2 ? '1 / -1' : undefined,
-    }}>
-      <label style={{ fontSize: 'var(--font-size-base)', color: 'var(--text-secondary)', fontWeight: '600' }}>{label}</label>
+    <div className={'field-wrap' + (span === 2 ? ' field-wrap--span2' : '')}>
+      <label className="field-wrap__label">{label}</label>
       {children}
-      {hint && <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', lineHeight: '1.5' }}>{hint}</span>}
+      {hint && <span className="field-wrap__hint">{hint}</span>}
     </div>
   );
 }
 
-/* ─── Collapsible：可折叠区域 ─── */
+/* ─── Collapsible ─── */
 export function Collapsible({ title, desc, children, defaultOpen = false }: {
   title: string; desc?: string; children: React.ReactNode; defaultOpen?: boolean;
 }) {
   return (
-    <details open={defaultOpen} style={{
-      gridColumn: '1 / -1',
-      border: '1px dashed var(--border)',
-      borderRadius: 'var(--radius-md)',
-      padding: 0,
-    }}>
-      <summary style={{
-        cursor: 'pointer', padding: '10px 14px',
-        display: 'flex', flexDirection: 'column', gap: '4px',
-        userSelect: 'none', color: 'var(--text-primary)',
-        fontSize: 'var(--font-size-md)', fontWeight: '600',
-      }}>
+    <details open={defaultOpen} className="collapsible">
+      <summary>
         {title}
-        {desc && <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', fontWeight: '400' }}>{desc}</span>}
+        {desc && <span className="collapsible__desc">{desc}</span>}
       </summary>
-      <div style={{ padding: '0 14px 10px' }}>
+      <div className="collapsible__body">
         {children}
       </div>
     </details>
   );
 }
 
-/* ─── TextArea：多行文本输入 ─── */
+/* ─── TextArea ─── */
 export function TextArea({ value, onChange, placeholder, rows = 6, mono = false }: {
   value: string; onChange: (v: string) => void;
   placeholder?: string; rows?: number; mono?: boolean;
@@ -171,12 +159,12 @@ export function TextArea({ value, onChange, placeholder, rows = 6, mono = false 
       placeholder={placeholder}
       rows={rows}
       spellCheck={false}
-      className={`settings-textarea${mono ? ' mono' : ''}`}
+      className={'textarea-field' + (mono ? ' textarea-field--mono' : '')}
     />
   );
 }
 
-/* ─── Button：统一按钮 ─── */
+/* ─── Button ─── */
 export function Button({ children, onClick, primary = false, disabled = false, icon }: {
   children: React.ReactNode; onClick?: () => void;
   primary?: boolean; disabled?: boolean; icon?: React.ReactNode;
@@ -185,41 +173,34 @@ export function Button({ children, onClick, primary = false, disabled = false, i
     <button
       onClick={onClick}
       disabled={disabled}
-      className={primary ? 'btn-primary btn-sm' : 'btn-secondary btn-sm'}
-      style={{
-        opacity: disabled ? 0.5 : 1,
-        whiteSpace: 'nowrap',
-      }}
+      className={primary ? 'btn btn-primary btn-sm' : 'btn btn-bracket btn-sm'}
     >
       {icon}{children}
     </button>
   );
 }
 
-/* ─── Slider：滑块输入 ─── */
+/* ─── Slider ─── */
 export function Slider({ label, value, onChange, min, max, step = 1, unit = '' }: {
   label: string; value: number; onChange: (v: number) => void;
   min: number; max: number; step?: number; unit?: string;
 }) {
+  const pct = ((value - min) / (max - min)) * 100;
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)', fontWeight: '600' }}>{label}</span>
-        <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--accent)', fontWeight: '600' }}>{value}{unit}</span>
+    <div className="setting-slider" style={{ flexDirection: 'column', gap: '6px', maxWidth: '100%' }}>
+      <div className="setting-slider-header">
+        <span className="field-wrap__label">{label}</span>
+        <span className="setting-slider__value">{value}{unit}</span>
       </div>
-      <input
-        type="range"
-        min={min} max={max} step={step}
-        value={value}
-        onChange={e => onChange(Number(e.target.value))}
-        style={{
-          width: '100%', height: '4px',
-          appearance: 'none', WebkitAppearance: 'none',
-          background: 'var(--bg-tertiary)',
-          borderRadius: '2px', outline: 'none',
-          cursor: 'pointer',
-        }}
-      />
+      <div className="setting-slider__track">
+        <div className="setting-slider__thumb" style={{ left: pct + '%' }} />
+        <input
+          type="range"
+          min={min} max={max} step={step}
+          value={value}
+          onChange={e => onChange(Number(e.target.value))}
+        />
+      </div>
     </div>
   );
 }

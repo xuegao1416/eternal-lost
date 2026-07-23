@@ -5,6 +5,7 @@ import { GameProvider, useGame } from './context/GameContext';
 import MainMenu from './components/mainMenu/MainMenu';
 import GameScreen from './components/game/GameScreen';
 import SettingsScreen from './components/settings/SettingsScreen';
+import OpeningWizard from './components/opening/OpeningWizard';
 import { initWorldBookSystem } from './data/worldbook';
 import { initPromptAssembler } from './engine/promptAssembler';
 
@@ -17,6 +18,7 @@ function AppContent() {
   switch (state.currentScreen) {
     case 'settings': return <SettingsScreen />;
     case 'game': return <GameScreen />;
+    case 'opening': return <OpeningWizard />;
     default: return <MainMenu />;
   }
 }

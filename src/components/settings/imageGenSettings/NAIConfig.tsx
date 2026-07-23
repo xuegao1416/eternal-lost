@@ -43,7 +43,7 @@ export default function NAIConfig({ config, updateConfig }: ConfigSectionProps) 
             <input
               className="input-field"
               type={showApiKey ? 'text' : 'password'}
-              style={{ flex: 1, padding: '6px 10px' }}
+              style={{ flex: 1 }}
               value={config.apiKey}
               onChange={(e) => updateConfig('apiKey', e.target.value)}
               placeholder="pst-..."

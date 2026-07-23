@@ -65,6 +65,16 @@ export interface InventoryItem {
   foundAt: string;
 }
 
+/** 降临者档案 */
+export interface CharacterProfile {
+  name: string;
+  gender: string;
+  background: string;
+  appearance: string;
+  items: string;
+  personality: string;
+}
+
 /** 探索状态 */
 export interface ExplorationState {
   currentLevelId: string;
@@ -76,6 +86,7 @@ export interface ExplorationState {
   deathCount: number;
   escapeAttempts: number;
   currentMood: string;
+  characterProfile: CharacterProfile | null;
 }
 
 /** 创建默认探索状态 */
@@ -90,5 +101,6 @@ export function createDefaultExplorationState(startLevelId: string = 'level-0'):
     deathCount: 0,
     escapeAttempts: 0,
     currentMood: '困惑',
+    characterProfile: null,
   };
 }

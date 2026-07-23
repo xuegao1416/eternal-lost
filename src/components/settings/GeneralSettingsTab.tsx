@@ -1,5 +1,5 @@
 // ============================================================
-//  通用设置 
+//  通用设置
 // ============================================================
 import { Globe, Type } from 'lucide-react';
 import { useConfigStore } from '../../stores/configStore';
@@ -10,7 +10,7 @@ export default function GeneralSettingsTab() {
   const { settings, updateSettings, t } = useConfigStore();
 
   return (
-    <div style={{ maxWidth: 560 }}>
+    <>
       {/* 语言 */}
       <Section icon={<Globe size={15} />} title={t('settings.language')}>
         <SettingRow label={t('settings.language')}>
@@ -61,6 +61,6 @@ export default function GeneralSettingsTab() {
           <Toggle value={settings.autoScroll} onChange={v => updateSettings('autoScroll', v)} />
         </SettingRow>
       </Section>
-    </div>
+    </>
   );
 }

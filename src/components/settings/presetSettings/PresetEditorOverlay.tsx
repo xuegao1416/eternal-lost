@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
-import { FileText, Plus, Upload, X } from 'lucide-react';
+import { FileText, Plus, Upload, X, RefreshCw } from 'lucide-react';
 import type { PresetPromptEntry } from '@/data/builtinPresets';
 import { getBuiltinPreset } from '@/data/builtinPresets';
 import type { RegexScript } from '@/utils/regexScripts';
@@ -107,12 +107,12 @@ export function PresetEditorOverlay({ preset, builtin, onClose, onSave, onRestor
     <div style={{
       position: 'fixed', inset: 0, zIndex: 1000,
       display: 'flex', justifyContent: 'center',
-      background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(4px)',
+      background: 'rgba(26, 22, 18, 0.5)', backdropFilter: 'blur(4px)',
     }} onClick={onClose}>
       {DialogUI}
       <div style={{
         width: '90vw', maxWidth: '720px', height: '90vh',
-        background: 'var(--bg-primary)', borderRadius: '12px',
+        background: 'var(--paper-light)', borderRadius: '12px',
         border: '1px solid var(--border)',
         display: 'flex', flexDirection: 'column', overflow: 'hidden',
         marginTop: '5vh',
@@ -125,12 +125,12 @@ export function PresetEditorOverlay({ preset, builtin, onClose, onSave, onRestor
           flexShrink: 0,
         }}>
           <FileText size={18} />
-          <span style={{ fontWeight: '600', fontSize: 'var(--font-size-lg)', flex: 1 }}>
+          <span style={{ fontWeight: '600', fontSize: 'var(--text-lg)', flex: 1 }}>
             {preset.name}{builtin && '（内置）'}
           </span>
           {builtin && (
             <button onClick={handleRestoreDefaults} style={{ ...iconBtnStyle, fontSize: 'var(--font-size-xs)', padding: '4px 8px', display: 'flex', alignItems: 'center', gap: '4px' }} title="恢复默认">
-              🔄 恢复默认
+              <RefreshCw size={14} /> 恢复默认
             </button>
           )}
           <button onClick={onClose} style={iconBtnStyle}><X size={18} /></button>
@@ -145,9 +145,9 @@ export function PresetEditorOverlay({ preset, builtin, onClose, onSave, onRestor
             onClick={() => setTab('prompts')}
             style={{
               flex: 1, padding: '10px', background: 'none', border: 'none',
-              borderBottom: tab === 'prompts' ? '2px solid var(--accent)' : '2px solid transparent',
-              color: tab === 'prompts' ? 'var(--accent)' : 'var(--text-muted)',
-              fontWeight: '600', fontSize: 'var(--font-size-sm)', cursor: 'pointer',
+              borderBottom: tab === 'prompts' ? '2px solid var(--stamp-red)' : '2px solid transparent',
+              color: tab === 'prompts' ? 'var(--stamp-red)' : 'var(--ink-muted)',
+              fontWeight: '600', fontSize: 'var(--text-sm)', cursor: 'pointer',
             }}
           >
             📝 提示词条目 ({sortedPrompts.length})
@@ -156,9 +156,9 @@ export function PresetEditorOverlay({ preset, builtin, onClose, onSave, onRestor
             onClick={() => setTab('regex')}
             style={{
               flex: 1, padding: '10px', background: 'none', border: 'none',
-              borderBottom: tab === 'regex' ? '2px solid var(--accent)' : '2px solid transparent',
-              color: tab === 'regex' ? 'var(--accent)' : 'var(--text-muted)',
-              fontWeight: '600', fontSize: 'var(--font-size-sm)', cursor: 'pointer',
+              borderBottom: tab === 'regex' ? '2px solid var(--stamp-red)' : '2px solid transparent',
+              color: tab === 'regex' ? 'var(--stamp-red)' : 'var(--ink-muted)',
+              fontWeight: '600', fontSize: 'var(--text-sm)', cursor: 'pointer',
             }}
           >
             🔧 正则脚本 ({preset.regexScripts?.length || 0})
@@ -202,7 +202,7 @@ export function PresetEditorOverlay({ preset, builtin, onClose, onSave, onRestor
               </div>
 
               {(preset.regexScripts || []).length === 0 ? (
-                <div style={{ textAlign: 'center', padding: '32px', color: 'var(--text-muted)' }}>
+                <div style={{ textAlign: 'center', padding: '32px', color: 'var(--ink-muted)' }}>
                   暂无正则脚本
                 </div>
               ) : (
