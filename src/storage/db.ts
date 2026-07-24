@@ -371,3 +371,107 @@ export function buildPreview(save: GameSave): string {
   if (save.characterProfile?.name) return save.characterProfile.name;
   return '未知旅者';
 }
+
+// ─── 导入导出 ─────────────────────────────────────────
+
+function getUniqueImportName(baseName: string, metas: SaveMeta[]): string {
+  if (!metas.some(s => s.name === baseName)) return baseName;
+
+  let index = 1;
+  let candidate = `${baseName}（导入）`;
+  while (metas.some(s => s.name === candidate)) {
+    index++;
+    candidate = `${baseName}（导入${index}）`;
+  }
+  return candidate;
+}
+
+export async function exportSave(saveId: string): Promise<Blob> {
+  const db = await getDB();
+  const record = await db.get(SAVES_STORE, saveId);
+  if (!record) throw new Error('存档不存在');
+
+  let messages: ChatMessage[];
+  const schemaVersion = (record as any).schemaVersion ?? 0;
+
+  if (schemaVersion >= SAVE_SCHEMA_VERSION && !(record as any).messages) {
+    messages = await getAllMessages(saveId);
+  } else {
+    messages = (record as GameSave).messages || [];
+  }
+
+  const exportData = {
+    type: 'eternal-lost-save',
+    version: '2.0',
+    exportedAt: Date.now(),
+    save: {
+      id: record.id,
+      name: record.name,
+      timestamp: record.timestamp,
+      messages,
+      exploration: record.exploration,
+      currentLevelId: record.currentLevelId,
+      characterProfile: record.characterProfile,
+    },
+  };
+
+  return new Blob([JSON.stringify(exportData)], { type: 'application/json' });
+}
+
+export async function importSaveFromData(rawData: any): Promise<SaveMeta> {
+  if (!rawData || typeof rawData !== 'object' || !rawData.save) {
+    throw new Error('存档数据格式无效');
+  }
+
+  const save = rawData.save;
+  if (!save.exploration) {
+    throw new Error('文件中未找到有效存档数据（缺少 exploration）');
+  }
+
+  const metas = await getAllSaveMeta();
+  let finalId = String(save.id || '').trim() || generateSaveId();
+  while (metas.some(s => s.id === finalId)) {
+    finalId = generateSaveId();
+  }
+
+  const baseName = String(save.name || '').trim() || '导入存档';
+  const finalName = getUniqueImportName(baseName, metas);
+  const finalTimestamp = Number(save.timestamp) || Date.now();
+
+  const saveData: GameSave = {
+    id: finalId,
+    name: finalName,
+    timestamp: finalTimestamp,
+    messages: Array.isArray(save.messages) ? save.messages : [],
+    exploration: save.exploration,
+    currentLevelId: save.currentLevelId || 'level-0',
+    characterProfile: save.characterProfile || null,
+  };
+
+  const compactHead: Omit<CompactSaveRecord, 'messageCount' | 'lastMessageSeq'> = {
+    id: saveData.id,
+    name: saveData.name,
+    timestamp: saveData.timestamp,
+    schemaVersion: SAVE_SCHEMA_VERSION,
+    round: saveData.messages.reduce((max, m) => Math.max(max, m.round ?? 0), 0),
+    exploration: saveData.exploration,
+    currentLevelId: saveData.currentLevelId,
+    characterProfile: saveData.characterProfile,
+  };
+
+  await saveGameIncremental(saveData.id, compactHead, saveData.messages);
+
+  const meta: SaveMeta = {
+    id: saveData.id,
+    name: saveData.name,
+    timestamp: saveData.timestamp,
+    preview: buildPreview(saveData),
+    estBytes: saveData.messages.length * 500,
+    messageCount: saveData.messages.length,
+  };
+
+  const updated = [...metas, meta];
+  await saveAllSaveMeta(updated);
+
+  return meta;
+}

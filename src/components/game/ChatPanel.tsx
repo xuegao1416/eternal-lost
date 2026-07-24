@@ -1,41 +1,48 @@
 // ============================================================
-//  对话面板 — 后室叙事交互（接入真实 AI API）
+//  对话面板 — 后室叙事交互（useGameEngine 驱动）
 // ============================================================
-import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useGame } from '../../context/GameContext';
-import { useGameStore } from '../../stores/gameStore';
+import { useGameEngine } from '../../engine/useGameEngine';
 import { useSaveStore } from '../../stores/saveStore';
-import { useConfigStore } from '../../stores/configStore';
-import { requestCompletionStream } from '../../api/client';
-import { assembleSystemPrompt } from '../../engine/promptAssembler';
-import { parseGameActions, executeGameActions } from '../../engine/gameActionParser';
-import type { Message } from '../../api/types';
 import MessageBubble from './chat/MessageBubble';
 import { Send, Square } from 'lucide-react';
 
 export default function ChatPanel() {
   const { state, actions } = useGame();
-  const apiConfig = useConfigStore(s => s.apiConfig);
+  const { sendMessage, abort, isGenerating, error, clearError } = useGameEngine();
+
   const [input, setInput] = useState('');
-  const [streamingText, setStreamingText] = useState('');
-  const [streamingMsgId, setStreamingMsgId] = useState<string | null>(null);
-  const [isStreaming, setIsStreaming] = useState(false);
-  const abortRef = useRef<AbortController | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const prevGeneratingRef = useRef(false);
 
+  // ─── 自动滚动 ─────────────────────────
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [state.messages, streamingText]);
+  }, [state.messages]);
 
-  // 渲染消息列表（包含流式消息）
-  const displayMessages = useMemo(() => {
-    if (streamingMsgId && streamingText) {
-      // 流式消息已通过 addMessage 添加，直接用现有列表
-      return state.messages;
+  // ─── 自动存档：生成完成且无错误时触发 ──
+  useEffect(() => {
+    const wasGenerating = prevGeneratingRef.current;
+    prevGeneratingRef.current = isGenerating;
+
+    if (wasGenerating && !isGenerating && !error) {
+      const timer = setTimeout(() => {
+        useSaveStore.getState().scheduleAutoSave();
+      }, 500);
+      return () => clearTimeout(timer);
     }
-    return state.messages;
-  }, [state.messages, streamingMsgId, streamingText]);
+  }, [isGenerating, error]);
+
+  // ─── 流式消息标识 ─────────────────────
+  // useGameEngine 在 store 中直接更新 assistant 消息内容，
+  // 所以只需找到最后一条 assistant 消息作为"正在流式输出"的目标
+  const streamingMsgId = isGenerating
+    ? [...state.messages].reverse().find(m => m.role === 'assistant')?.id ?? null
+    : null;
+
+  // ─── 交互回调 ─────────────────────────
 
   const handleOptionClick = useCallback((optionText: string) => {
     setInput(optionText);
@@ -53,9 +60,9 @@ export default function ChatPanel() {
   const handleResend = useCallback((id: string) => {
     const msg = state.messages.find(m => m.id === id);
     if (!msg) return;
-    // 先回滚探索状态（物品/规则/层级/轮数）到这条消息发送前的快照
+    // 回滚探索状态到这条消息发送前的快照
     actions.rollbackToMessageSnapshot(id);
-    // 再删除这条及之后的所有消息
+    // 删除这条及之后的所有消息
     actions.deleteMessagesFrom(id);
     setInput(msg.content);
     textareaRef.current?.focus();
@@ -65,112 +72,25 @@ export default function ChatPanel() {
 
   const handleResendFromHere = useCallback((id: string) => {
     actions.restoreFromMessage(id);
-    // 回滚后立即保存
     useSaveStore.getState().scheduleAutoSave();
   }, [actions]);
 
+  // ─── 发送 ─────────────────────────────
+
   const handleSend = useCallback(async () => {
     const text = input.trim();
-    if (!text || state.isLoading || isStreaming) return;
+    if (!text || isGenerating) return;
 
-    if (!apiConfig?.apiKey) {
-      actions.addMessage({ role: 'system', content: '请先在设置中配置 API Key。' });
-      return;
-    }
+    // 清除上一次的错误
+    if (error) clearError();
 
-    // 发送前捕获当前状态快照与轮次（用于回滚恢复）
-    const preSend = useGameStore.getState();
-    const sendSnapshot = preSend.exploration;
-    const sendRound = preSend.round;
-
-    actions.addMessage({
-      role: 'user',
-      content: text,
-      snapshot: sendSnapshot,
-      round: sendRound,
-    });
     setInput('');
-    actions.setLoading(true);
-    setIsStreaming(true);
-    setStreamingText('');
+    await sendMessage(text);
+  }, [input, isGenerating, error, clearError, sendMessage]);
 
-    // 构建消息列表（世界书需要聊天历史进行关键词扫描）
-    const chatHistory = state.messages
-      .filter(m => m.role !== 'system')
-      .map(m => ({ role: m.role, content: m.content }));
-
-    const systemPrompt = assembleSystemPrompt(
-      state.currentLevel,
-      state.exploration,
-      undefined,
-      chatHistory,
-      text,
-    );
-
-    const messages: Message[] = [
-      { role: 'system', content: systemPrompt },
-      ...chatHistory.map(m => ({ role: m.role as 'user' | 'assistant', content: m.content })),
-      { role: 'user', content: text },
-    ];
-
-    const controller = new AbortController();
-    abortRef.current = controller;
-
-    // 预创建一条 assistant 消息用于流式更新（保存快照+轮次用于回滚）
-    const tempId = `streaming-${Date.now()}`;
-    const currentSnapshot = useGameStore.getState().exploration;
-    const currentRound = useGameStore.getState().round;
-    actions.addMessage({ id: tempId, role: 'assistant', content: '', snapshot: currentSnapshot, round: currentRound });
-    setStreamingMsgId(tempId);
-
-    try {
-      let accumulated = '';
-      const result = await requestCompletionStream(apiConfig, messages, {
-        signal: controller.signal,
-        onDelta: (delta) => {
-          accumulated += delta;
-          setStreamingText(accumulated);
-        },
-      });
-
-      if (result.text) {
-        // 解析游戏动作标记
-        const { cleanText, actions: parsedActions } = parseGameActions(result.text);
-
-        // 更新流式消息为清理后的内容
-        actions.updateMessage(tempId, cleanText);
-
-        // 执行游戏动作（层级切换、物品发现、规则发现等）
-        if (parsedActions.length > 0) {
-          const actionFeedback = executeGameActions(parsedActions);
-          if (actionFeedback.length > 0) {
-            console.log('[GameAction] 执行的游戏动作:', actionFeedback);
-          }
-        }
-
-        actions.incrementSurvivalTime();
-        actions.incrementRound();
-      }
-    } catch (err: any) {
-      if (err.name !== 'AbortError') {
-        console.error('[ChatPanel] API error:', err);
-        actions.updateMessage(tempId, `请求失败：${err.message || '未知错误'}`);
-      }
-    } finally {
-      setStreamingText('');
-      setStreamingMsgId(null);
-      setIsStreaming(false);
-      actions.setLoading(false);
-      abortRef.current = null;
-
-      // 每轮对话后触发自动存档（debounce 500ms）
-      useSaveStore.getState().scheduleAutoSave();
-    }
-  }, [input, state.isLoading, isStreaming, apiConfig, state.messages, state.currentLevel, state.exploration, actions]);
-
-  const handleStop = () => {
-    abortRef.current?.abort();
-  };
+  const handleStop = useCallback(() => {
+    abort();
+  }, [abort]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -178,6 +98,8 @@ export default function ChatPanel() {
       handleSend();
     }
   };
+
+  // ─── 渲染 ─────────────────────────────
 
   return (
     <div className="chat-panel">
@@ -190,11 +112,11 @@ export default function ChatPanel() {
               </div>
             );
           }
-          const isMsgStreaming = msg.id === streamingMsgId && isStreaming;
+          const isMsgStreaming = msg.id === streamingMsgId;
           return (
             <MessageBubble
               key={msg.id}
-              message={isMsgStreaming ? { ...msg, content: streamingText || msg.content } : msg}
+              message={msg}
               isStreaming={isMsgStreaming}
               onOptionClick={handleOptionClick}
               onDelete={handleDelete}
@@ -204,7 +126,7 @@ export default function ChatPanel() {
             />
           );
         })}
-        {state.isLoading && !streamingText && (
+        {isGenerating && !streamingMsgId && (
           <div className="msg-bubble--narrative" style={{ maxWidth: '85%', padding: 'var(--space-3)' }}>
             <span className="cursor-blink" />
           </div>
@@ -223,7 +145,7 @@ export default function ChatPanel() {
             placeholder="描述你的行动..."
             rows={1}
           />
-          {isStreaming ? (
+          {isGenerating ? (
             <button
               className="input-area__send input-area__send--stop"
               onClick={handleStop}
@@ -234,7 +156,7 @@ export default function ChatPanel() {
             <button
               className="input-area__send"
               onClick={handleSend}
-              disabled={!input.trim() || state.isLoading}
+              disabled={!input.trim()}
             >
               <Send size={18} />
             </button>

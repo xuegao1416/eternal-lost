@@ -69,10 +69,13 @@ export interface InventoryItem {
 export interface CharacterProfile {
   name: string;
   gender: string;
+  age: string;
+  occupation: string;
   background: string;
   appearance: string;
   items: string;
   personality: string;
+  fileNumber?: string;
 }
 
 /** 探索状态 */

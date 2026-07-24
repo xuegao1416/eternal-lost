@@ -108,9 +108,9 @@ export function assembleSystemPrompt(
   // 降临者档案
   const profile = exploration.characterProfile;
   if (profile) {
-    contextParts.push(`## 降临者档案
+    contextParts.push(`## 降临者档案${profile.fileNumber ? ` [${profile.fileNumber}]` : ''}
 - 姓名：${profile.name}
-- 性别：${profile.gender}
+- 性别：${profile.gender}${profile.age ? `\n- 年龄段：${profile.age}` : ''}${profile.occupation ? `\n- 职业：${profile.occupation}` : ''}
 - 背景：${profile.background}
 - 外貌/穿着：${profile.appearance}
 - 随身物品：${profile.items}
